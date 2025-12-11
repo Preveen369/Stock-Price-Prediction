@@ -9,14 +9,48 @@ model = load_model('./models/Stock Predictions Model.keras')
 
 st.header('Stockify - Stock Market Price Predictor')
 
-stock =st.text_input('Enter Stock Symnbol', 'GOOG')
+stock = st.text_input('Enter Stock Symbol', '')
 start = '2012-01-01'
 end = '2022-12-31'
 
-data = yf.download(stock, start ,end)
+# Check if stock symbol is empty or just whitespace
+if not stock or stock.strip() == '':
+    st.warning('⚠️ Please enter a valid stock symbol to get predictions.')
+    st.info('💡 **US Markets:** GOOG (Google), AAPL (Apple), MSFT (Microsoft), TSLA (Tesla)')
+    st.info('💡 **Indian NSE:** INFY.NS (Infosys), TCS.NS (TCS), RELIANCE.NS (Reliance)')
+    st.info('💡 **Indian BSE:** 500209.BO (Infosys), 532540.BO (TCS), 500325.BO (Reliance)')
+    st.markdown('---')
+    st.markdown('''
+    **📊 Supported Markets:**
+    - **US Stocks**: Use ticker symbol directly (e.g., AAPL, GOOGL)
+    - **NSE (National Stock Exchange)**: Add `.NS` suffix (e.g., INFY.NS)
+    - **BSE (Bombay Stock Exchange)**: Add `.BO` suffix (e.g., 500209.BO)
+    ''')
+    st.stop()
+
+# Download stock data
+try:
+    data = yf.download(stock.strip().upper(), start, end)
+    
+    # Check if data was successfully downloaded
+    if data.empty:
+        st.error(f'❌ No data found for stock symbol: {stock.strip().upper()}')
+        st.info('💡 Please check if the stock symbol is correct and try again.')
+        st.stop()
+        
+except Exception as e:
+    st.error(f'❌ Error downloading data for {stock.strip().upper()}: {str(e)}')
+    st.info('💡 Please check your internet connection and stock symbol.')
+    st.stop()
 
 st.subheader('Stock Data')
 st.write(data)
+
+# Check if there's enough data for analysis
+if len(data) < 200:
+    st.error(f'❌ Insufficient data for analysis. Only {len(data)} days of data available.')
+    st.info('💡 The model requires at least 200 days of data for accurate predictions. Please try a different stock symbol or date range.')
+    st.stop()
 
 data_train = pd.DataFrame(data.Close[0: int(len(data)*0.80)])
 data_test = pd.DataFrame(data.Close[int(len(data)*0.80): len(data)])
