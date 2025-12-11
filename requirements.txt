@@ -1,0 +1,7 @@
+numpy>=1.21.0
+pandas>=1.3.0
+yfinance>=0.1.87
+tensorflow==2.18.0
+scikit-learn>=1.0.0
+streamlit>=1.28.0
+matplotlib>=3.5.0
