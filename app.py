@@ -23,8 +23,8 @@ if not stock or stock.strip() == '':
     st.markdown('''
     **📊 Supported Markets:**
     - **US Stocks**: Use ticker symbol directly (e.g., AAPL, GOOGL)
-    - **NSE (National Stock Exchange)**: Add `.NS` suffix (e.g., INFY.NS)
-    - **BSE (Bombay Stock Exchange)**: Add `.BO` suffix (e.g., 500209.BO)
+    - **Indian NSE (National Stock Exchange)**: Add `.NS` suffix (e.g., INFY.NS)
+    - **Indian BSE (Bombay Stock Exchange)**: Add `.BO` suffix (e.g., 500209.BO)
     ''')
     st.stop()
 
