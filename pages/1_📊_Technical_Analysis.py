@@ -48,7 +48,7 @@ st.sidebar.info("""
 if 'stock_data' not in st.session_state or st.session_state.stock_data is None:
     st.warning("⚠️ No stock data available. Please go to the Main Dashboard and select a stock first.")
     if st.button("🏠 Go to Main Dashboard"):
-        st.switch_page("dashboard.py")
+        st.switch_page("app.py")
     st.stop()
 
 data = st.session_state.stock_data
@@ -59,7 +59,7 @@ predictions = st.session_state.predictions
 if predictions is None:
     st.warning("⚠️ No prediction data available. Please refresh the Main Dashboard.")
     if st.button("🏠 Go to Main Dashboard"):
-        st.switch_page("dashboard.py")
+        st.switch_page("app.py")
     st.stop()
 
 predict, y = predictions
