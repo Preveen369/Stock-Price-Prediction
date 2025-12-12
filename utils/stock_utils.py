@@ -161,13 +161,13 @@ def display_llm_sidebar_status(llm_service):
 def display_market_info():
     """Display market information when no stock is selected"""
     st.warning('⚠️ Please enter a valid stock symbol to get predictions.')
-    st.info('💡 **US Markets:** GOOG (Google), AAPL (Apple), MSFT (Microsoft), TSLA (Tesla)')
+    st.info('💡 **US NASDAQ:** GOOG (Google), AAPL (Apple), MSFT (Microsoft), TSLA (Tesla)')
     st.info('💡 **Indian NSE:** INFY.NS (Infosys), TCS.NS (TCS), RELIANCE.NS (Reliance)')
     st.info('💡 **Indian BSE:** 500209.BO (Infosys), 532540.BO (TCS), 500325.BO (Reliance)')
     st.markdown('---')
     st.markdown('''
     **📊 Supported Markets:**
-    - **US Stocks**: Use ticker symbol directly (e.g., AAPL, GOOGL)
+    - **US Markets (NASDAQ)**: Use ticker symbol directly (e.g., AAPL, GOOGL)
     - **Indian NSE (National Stock Exchange)**: Add `.NS` suffix (e.g., INFY.NS)
     - **Indian BSE (Bombay Stock Exchange)**: Add `.BO` suffix (e.g., 500209.BO)
     ''')

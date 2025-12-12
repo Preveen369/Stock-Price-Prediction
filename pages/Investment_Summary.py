@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.stock_utils import (
     init_local_llm, calculate_prediction_accuracy, 
-    display_llm_sidebar_status, get_trend_info
+    display_llm_sidebar_status
 )
 
 st.set_page_config(
