@@ -132,8 +132,6 @@ Base your interpretation on typical data available from:
 Only interpret; do not generate fictional numerical data.
 
 ---
-
-**Disclaimer:** This analysis is based solely on the provided AI model's output and cross-referenced data from the specified sources as of today's date. It is intended for informational purposes only and does not constitute financial advice. Investors should verify all ratios and recent developments on the referenced platforms before making any investment decisions.
 """
         )
         
@@ -228,8 +226,6 @@ Your interpretations should align with the type of data available on:
 - Yahoo Finance (charts, news sentiment)  
 
 ---
-
-**Disclaimer:** This analysis is based solely on the provided AI model's output and cross-referenced data from the specified sources as of today's date. It is intended for informational purposes only and does not constitute financial advice. Verify all price levels and ratios through Screener.in, NASDAQ, and Yahoo Finance before making investment decisions.
 """
         )
         

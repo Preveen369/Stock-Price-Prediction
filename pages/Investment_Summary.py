@@ -97,7 +97,7 @@ if llm_service.check_connection():
 
     # AI Investment Summary
     st.markdown("---")
-    st.subheader('🤖 AI Investment Summary')
+    st.subheader('🤖 AI Investment Summary Report')
     
     # Prepare comprehensive data for investment analysis
     latest_price_val = metrics['latest_price'].item()
@@ -149,9 +149,9 @@ if llm_service.check_connection():
             st.rerun()
     else:
         # Show generate button if no cached results
-        st.info("💡 Generate comprehensive AI investment recommendations including entry/exit strategies, risk assessment, and portfolio advice.")
+        st.info("💡 Generate comprehensive AI investment summary including entry/exit strategies, risk assessment, and portfolio advice.")
         
-        if st.button("🚀 Generate Summary", key="summary_generate", use_container_width=True):
+        if st.button("🚀 Generate Summary", key="summary_generate"):
             # Create a contained streaming area
             with st.container():
                 st.markdown("#### 📊 Generating AI Investment Summary...")
@@ -161,7 +161,7 @@ if llm_service.check_connection():
                     
                 try:
                     # Use streaming response with a progress indicator
-                    with st.spinner("🤖 AI is generating investment recommendations..."):
+                    with st.spinner("🤖 AI is generating investment summary report..."):
                         def investment_summary_stream():
                             return llm_service.generate_investment_summary_stream(
                                 technical_summary, price_metrics
@@ -190,7 +190,7 @@ if llm_service.check_connection():
 else:
     st.markdown("---")
     st.warning("🤖 AI Investment Summary Unavailable")
-    st.info("💡 To enable AI analysis:")
+    st.info("💡 To enable AI analysis Report:")
     st.markdown("""
     1. Install and start **LM Studio** from [lmstudio.ai](https://lmstudio.ai)
     2. Download a financial analysis model (recommended: Gemma or Llama)
@@ -249,7 +249,7 @@ with col3:
 # Disclaimer
 st.markdown("---")
 st.markdown("""
-> **⚠️ Disclaimer:** This analysis is for educational purposes only and should not be considered as financial advice. 
-> Always conduct your own research and consult with a qualified financial advisor before making investment decisions. 
-> Past performance does not guarantee future results.
+> **⚠️ Disclaimer:** This analysis is for Educational purposes only. Not to be considered as financial advice. \
+Consult a qualified financial advisor and verify data through Screener.in, NASDAQ, and Yahoo Finance. Past performance \
+doesn't guarantee future results.
 """)

@@ -46,6 +46,7 @@ st.header('📊 Stock Data & Price Prediction')
 
 stock = st.text_input('Enter Stock Symbol', '', help="Enter a stock symbol (e.g., AAPL, TSLA, INFY.NS)")
 
+
 # Validate stock input
 stock_symbol, error_message = validate_stock_input(stock)
 if error_message:
@@ -103,7 +104,7 @@ if stock_symbol:
     
     # Show expandable data table
     with st.expander("📊 View Full Dataset", expanded=False):
-        st.dataframe(data, use_container_width=True)
+        st.dataframe(data, width='stretch')
     
     # Prepare data for prediction
     data_test_scale, scaler = prepare_prediction_data(data)

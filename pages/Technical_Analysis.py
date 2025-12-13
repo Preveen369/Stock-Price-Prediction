@@ -131,7 +131,7 @@ if llm_service.check_connection():
 
     # AI Analysis Section
     st.markdown("---")
-    st.subheader('🤖 AI Technical Analysis')
+    st.subheader('🤖 AI Technical Analysis Report')
     
     # Prepare stock data for LLM analysis
     stock_data = prepare_stock_data_for_llm(stock_symbol, metrics)
@@ -154,10 +154,10 @@ if llm_service.check_connection():
     else:
         # Show generate button if no cached results
         st.info("🎯 Generate comprehensive AI technical analysis based on moving averages, trends, and price patterns.")
-        if st.button("🚀 Generate Analysis", key="technical_generate", use_container_width=True):
+        if st.button("🚀 Generate Analysis", key="technical_generate"):
             # Create a contained streaming area
             with st.container():
-                st.markdown("#### 📈 Generating AI Technical Analysis...")
+                st.markdown("#### 📈 Generating AI Technical Analysis Report...")
                     
                 # Create a placeholder for the streaming content
                 streaming_placeholder = st.empty()
@@ -199,3 +199,11 @@ else:
     3. Start the local server on `localhost:1234`
     4. Refresh this page to enable AI features
     """)
+
+# Disclaimer
+st.markdown("---")
+st.markdown("""
+> **⚠️ Disclaimer:** This analysis is for Educational purposes only. Not to be considered as financial advice. \
+Consult a qualified financial advisor and verify data through Screener.in, NASDAQ, and Yahoo Finance. Past performance \
+doesn't guarantee future results.
+""")

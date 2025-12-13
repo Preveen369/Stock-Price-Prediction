@@ -41,13 +41,4 @@ dmypy.json
 *~
 .DS_Store
 
-# Data files
-*.csv
-*.xlsx
-*.xls
-*.json
 
-# Model files
-*.pkl
-*.h5
-*.joblib
