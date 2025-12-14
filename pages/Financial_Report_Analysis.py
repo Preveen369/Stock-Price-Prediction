@@ -23,14 +23,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Import modular components
 from services.embeddings_service import get_embeddings_model
 from services.rag_pipeline import RAGPipeline
-from utils.pdf_utils import is_pdf_available, load_pdf_with_langchain, split_documents
+from utils.pdf_utils import load_pdf_with_langchain, split_documents
 from utils.stock_utils import init_local_llm, display_llm_sidebar_status
-
-# Check PDF availability
-PDF_AVAILABLE = is_pdf_available()
-if not PDF_AVAILABLE:
-    st.warning("⚠️ PyPDF2 not installed. PDF support disabled. Please run: pip install PyPDF2")
-
 
 def initialize_session_state():
     """
