@@ -1,3 +1,14 @@
+"""
+Technical Analysis Page - AI-Powered Stock Technical Analysis
+Provides detailed technical indicator analysis and trend interpretation
+
+Features:
+- Moving average analysis (50, 100, 200-day)
+- Trend detection and classification
+- AI-generated technical insights
+- Price pattern analysis
+"""
+
 import streamlit as st
 import sys
 import os

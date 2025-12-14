@@ -1,3 +1,8 @@
+"""
+Local LLM Service - LM Studio Integration
+Handles communication with local LLM server for financial analysis
+"""
+
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 import requests
@@ -5,14 +10,34 @@ import json
 from typing import Dict, List, Optional
 
 class LocalLLMService:
+    """
+    Service class for interfacing with LM Studio local LLM server
+    
+    Provides methods for:
+    - Connection validation
+    - Model management
+    - Stock analysis generation
+    - Investment summary generation
+    """
+    
     def __init__(self, base_url: str = "http://localhost:1234/v1"):
-        """Initialize Local LLM Service with LM Studio"""
+        """
+        Initialize Local LLM Service with LM Studio
+        
+        Args:
+            base_url: Base URL for LM Studio API endpoint
+        """
         self.base_url = base_url
         self.client = None
         self._initialize_client()
         
     def _initialize_client(self):
-        """Initialize the ChatOpenAI client with error handling"""
+        """
+        Initialize the ChatOpenAI client with error handling
+        
+        Attempts to connect to LM Studio and configure the LangChain client
+        with appropriate model settings and timeouts.
+        """
         try:
             # Get the first available model if possible
             available_models = self.get_available_models()
@@ -41,7 +66,12 @@ class LocalLLMService:
             )
         
     def check_connection(self) -> bool:
-        """Check if LM Studio is running"""
+        """
+        Check if LM Studio server is running and accessible
+        
+        Returns:
+            bool: True if server is reachable, False otherwise
+        """
         try:
             response = requests.get(f"{self.base_url}/models", timeout=5)
             return response.status_code == 200
@@ -53,7 +83,12 @@ class LocalLLMService:
             return False
     
     def get_available_models(self) -> List[str]:
-        """Get list of loaded models in LM Studio"""
+        """
+        Get list of loaded models in LM Studio
+        
+        Returns:
+            List[str]: List of model identifiers currently loaded
+        """
         try:
             response = requests.get(f"{self.base_url}/models")
             if response.status_code == 200:
@@ -64,7 +99,15 @@ class LocalLLMService:
             return []
     
     def analyze_stock_fundamentals_stream(self, stock_data: Dict):
-        """Analyze stock fundamentals using local LLM with streaming response"""
+        """
+        Analyze stock fundamentals using local LLM with streaming response
+        
+        Args:
+            stock_data: Dictionary containing stock symbol, company info, and metrics
+            
+        Yields:
+            str: Chunks of AI-generated analysis text
+        """
         
         prompt = PromptTemplate(
             input_variables=["stock_symbol", "company_name", "sector", "financial_data", "technical_data"],
@@ -156,7 +199,16 @@ Only interpret; do not generate fictional numerical data.
             yield f"Error generating analysis: {str(e)}. Please ensure LM Studio is running with a model loaded."
     
     def generate_investment_summary_stream(self, technical_analysis: str, fundamental_analysis: str):
-        """Generate comprehensive investment summary with streaming response"""
+        """
+        Generate comprehensive investment summary with streaming response
+        
+        Args:
+            technical_analysis: Technical analysis text from previous analysis
+            fundamental_analysis: Fundamental analysis text from previous analysis
+            
+        Yields:
+            str: Chunks of AI-generated investment summary text
+        """
         
         prompt = PromptTemplate(
             input_variables=["technical_analysis", "fundamental_analysis"],

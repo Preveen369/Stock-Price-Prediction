@@ -1,3 +1,15 @@
+"""
+Stock Tickers List Page - Browse Available Stock Symbols
+Displays searchable lists of active stocks from NASDAQ and NSE markets
+
+Features:
+- NASDAQ (US) stock listings
+- NSE (India) stock listings
+- Search and filter functionality
+- Market statistics
+- Company information display
+"""
+
 import streamlit as st
 import pandas as pd
 import os
@@ -16,7 +28,15 @@ st.markdown("*Browse and search active stock tickers from NASDAQ and NSE markets
 # Helper function to load CSV data
 @st.cache_data
 def load_stock_data(file_path):
-    """Load stock ticker data from CSV file"""
+    """
+    Load stock ticker data from CSV file with caching
+    
+    Args:
+        file_path: Path to the CSV file containing stock data
+        
+    Returns:
+        tuple: (DataFrame with stock data, error message or None)
+    """
     try:
         if os.path.exists(file_path):
             df = pd.read_csv(file_path)

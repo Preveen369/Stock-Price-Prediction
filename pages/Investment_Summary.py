@@ -1,3 +1,15 @@
+"""
+Investment Summary Page - AI-Powered Investment Recommendations
+Provides comprehensive investment analysis and recommendations
+
+Features:
+- Risk assessment and volatility analysis
+- Investment recommendations (BUY/HOLD/SELL)
+- Entry/exit point suggestions
+- Portfolio allocation guidance
+- AI-generated investment insights
+"""
+
 import streamlit as st
 import sys
 import os

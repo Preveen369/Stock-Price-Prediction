@@ -1,3 +1,14 @@
+"""
+Stockify - AI-Enhanced Stock Market Predictor
+Main application dashboard for stock price prediction and analysis
+
+Features:
+- Real-time stock data fetching
+- LSTM neural network predictions
+- Moving average analysis
+- AI-powered insights via local LLM
+"""
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import sys

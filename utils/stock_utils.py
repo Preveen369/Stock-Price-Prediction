@@ -1,3 +1,8 @@
+"""
+Stock Utilities - Core Stock Analysis Functions
+Handles stock data downloading, prediction, metrics calculation, and UI utilities
+"""
+
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -10,7 +15,17 @@ from config.llm_config import LM_STUDIO_CONFIG
 
 @st.cache_data
 def download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2022-12-31'):
-    """Download stock data with caching"""
+    """
+    Download stock data from Yahoo Finance with caching
+    
+    Args:
+        stock_symbol: Stock ticker symbol (e.g., 'AAPL', 'INFY.NS')
+        start_date: Start date for historical data (YYYY-MM-DD)
+        end_date: End date for historical data (YYYY-MM-DD)
+        
+    Returns:
+        tuple: (DataFrame with stock data, error message or None)
+    """
     try:
         data = yf.download(stock_symbol.strip().upper(), start_date, end_date)
         return data, None
@@ -20,18 +35,36 @@ def download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2022-12
 
 @st.cache_resource
 def load_prediction_model():
-    """Load the Keras model with caching"""
+    """
+    Load the pre-trained Keras LSTM model with caching
+    
+    Returns:
+        Keras Sequential model for stock price prediction
+    """
     return load_model('./models/Stock Predictions Model.keras')
 
 
 @st.cache_resource
 def init_local_llm():
-    """Initialize and cache the local LLM service"""
+    """
+    Initialize and cache the local LLM service connection
+    
+    Returns:
+        LocalLLMService instance connected to LM Studio
+    """
     return LocalLLMService(LM_STUDIO_CONFIG["base_url"])
 
 
 def prepare_prediction_data(data):
-    """Prepare data for model prediction"""
+    """
+    Prepare and scale stock data for LSTM model prediction
+    
+    Args:
+        data: DataFrame containing stock price data with 'Close' column
+        
+    Returns:
+        tuple: (scaled test data array, MinMaxScaler instance)
+    """
     data_train = pd.DataFrame(data.Close[0: int(len(data)*0.80)])
     data_test = pd.DataFrame(data.Close[int(len(data)*0.80): len(data)])
     
@@ -45,7 +78,17 @@ def prepare_prediction_data(data):
 
 
 def make_predictions(model, data_test_scale, scaler):
-    """Generate predictions using the model"""
+    """
+    Generate stock price predictions using the trained LSTM model
+    
+    Args:
+        model: Trained Keras model
+        data_test_scale: Scaled test data array
+        scaler: MinMaxScaler instance for inverse transformation
+        
+    Returns:
+        tuple: (predicted prices array, actual prices array)
+    """
     x = []
     y = []
     
@@ -65,7 +108,15 @@ def make_predictions(model, data_test_scale, scaler):
 
 
 def calculate_metrics(data):
-    """Calculate key financial metrics"""
+    """
+    Calculate key financial metrics and technical indicators
+    
+    Args:
+        data: DataFrame containing stock price data
+        
+    Returns:
+        dict: Dictionary containing price metrics, moving averages, and technical indicators
+    """
     latest_price = data.Close.iloc[-1]
     price_change = ((data.Close.iloc[-1] - data.Close.iloc[-2]) / data.Close.iloc[-2]) * 100
     volatility = data.Close.pct_change().std() * 100
@@ -96,12 +147,30 @@ def calculate_metrics(data):
 
 
 def calculate_prediction_accuracy(y_actual, y_predicted):
-    """Calculate model prediction accuracy"""
+    """
+    Calculate model prediction accuracy using MAPE (Mean Absolute Percentage Error)
+    
+    Args:
+        y_actual: Array of actual stock prices
+        y_predicted: Array of predicted stock prices
+        
+    Returns:
+        float: Accuracy percentage (100 - MAPE)
+    """
     return 100 - (np.mean(np.abs((y_actual - y_predicted) / y_actual)) * 100)
 
 
 def prepare_stock_data_for_llm(stock_symbol, metrics):
-    """Prepare stock data for LLM analysis"""
+    """
+    Prepare stock data dictionary for LLM analysis
+    
+    Args:
+        stock_symbol: Stock ticker symbol
+        metrics: Dictionary containing calculated financial metrics
+        
+    Returns:
+        dict: Formatted data dictionary for LLM processing
+    """
     return {
         "symbol": stock_symbol.strip().upper(),
         "company_name": f"Company {stock_symbol.strip().upper()}",
@@ -122,7 +191,16 @@ def prepare_stock_data_for_llm(stock_symbol, metrics):
 
 
 def initialize_session_state():
-    """Initialize session state variables"""
+    """
+    Initialize Streamlit session state variables for stock analysis
+    
+    Creates session state entries for:
+    - LLM response cache
+    - Current stock symbol
+    - Stock data
+    - Predictions
+    - Metrics
+    """
     if 'llm_cache' not in st.session_state:
         st.session_state.llm_cache = {}
     if 'current_stock' not in st.session_state:
@@ -136,14 +214,27 @@ def initialize_session_state():
 
 
 def validate_stock_input(stock):
-    """Validate stock input and return cleaned symbol"""
+    """
+    Validate and clean user stock symbol input
+    
+    Args:
+        stock: Raw stock symbol input from user
+        
+    Returns:
+        tuple: (cleaned stock symbol or None, error message or None)
+    """
     if not stock or stock.strip() == '':
         return None, "Please enter a valid stock symbol to get predictions."
     return stock.strip().upper(), None
 
 
 def display_llm_sidebar_status(llm_service):
-    """Display LLM connection status in sidebar"""
+    """
+    Display LLM connection status and available models in sidebar
+    
+    Args:
+        llm_service: LocalLLMService instance
+    """
     st.sidebar.header("🤖 Local AI Status")
     if llm_service.check_connection():
         st.sidebar.success("✅ Local LLM Connected")
@@ -159,7 +250,14 @@ def display_llm_sidebar_status(llm_service):
 
 
 def display_market_info():
-    """Display market information when no stock is selected"""
+    """
+    Display market information and supported stock exchanges
+    
+    Shows information about:
+    - Supported market formats
+    - Example ticker symbols
+    - Usage instructions
+    """
     st.warning('⚠️ Please enter a valid stock symbol to get predictions.')
     st.info("💡 Search stock symbols in the **Stock Tickers List** page.")
     st.markdown('---')
@@ -171,7 +269,16 @@ def display_market_info():
 
 
 def get_trend_info(price_vs_ma50, price_vs_ma100):
-    """Get trend information based on moving averages"""
+    """
+    Determine market trend based on moving average positions
+    
+    Args:
+        price_vs_ma50: Price position relative to 50-day MA (percentage)
+        price_vs_ma100: Price position relative to 100-day MA (percentage)
+        
+    Returns:
+        tuple: (emoji, trend_text, color) representing the trend
+    """
     # Convert to scalar if pandas Series
     ma50_val = price_vs_ma50.item() if hasattr(price_vs_ma50, 'item') else price_vs_ma50
     ma100_val = price_vs_ma100.item() if hasattr(price_vs_ma100, 'item') else price_vs_ma100

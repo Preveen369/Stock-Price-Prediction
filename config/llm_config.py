@@ -1,3 +1,14 @@
+"""
+LLM Configuration - LM Studio Settings
+Centralized configuration for local LLM service integration
+
+Environment Variables:
+- LM_STUDIO_URL: Base URL for LM Studio server (default: http://localhost:1234/v1)
+- LM_STUDIO_MAX_TOKENS: Maximum tokens for generation (default: 2048)
+- LM_STUDIO_TEMPERATURE: Sampling temperature (default: 0.3)
+- LM_STUDIO_TIMEOUT: Request timeout in seconds (default: 30)
+"""
+
 import os
 from dotenv import load_dotenv
 
