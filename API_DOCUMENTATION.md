@@ -2,6 +2,8 @@
 
 > Complete API reference for Stockify - AI Stock Market Predictor
 
+> To view the about project overview click [View Project README](README.md)
+
 ---
 
 ## 📑 Table of Contents
@@ -932,6 +934,5 @@ chunks = split_documents(documents, chunk_size=500, chunk_overlap=50)
 
 **Need Help?**  
 - 📩 Email: [spreveen123@gmail.com](mailto:spreveen123@gmail.com)
-- 🐛 [Report Issues](https://github.com/Preveen369/Stock-Price-Prediction/issues)
-- 📖 [View README](README.md)
+- 📖 [View Project README](README.md)
 
