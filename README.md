@@ -9,13 +9,13 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ---
 
-## Overview
+## 📖 Overview
 
 **Stockify** combines LSTM neural networks, local LLM integration (LM Studio), and RAG for privacy-focused stock market analysis with price predictions, technical indicators, and AI-powered document Q&A on financial reports.
 
 ---
 
-## Features
+## ✨ Features
 
 ✅ LSTM price predictions (30-day forecasts) | Real-time stock data (Yahoo Finance)  
 ✅ AI investment recommendations (BUY/HOLD/SELL) | RAG document Q&A with citations  
@@ -25,7 +25,7 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```
 Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock, PDF, LSTM)
@@ -35,7 +35,7 @@ Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock, PDF, LST
 
 ---
 
-## Installation
+## 💻 Installation
 
 **Prerequisites**: Python 3.8+, LM Studio, 8GB+ RAM
 
@@ -60,7 +60,7 @@ streamlit run app.py  # Opens at http://localhost:8501
 
 ---
 
-## Pages Guide
+## 📱 Pages Guide
 
 ### 1. 🏠 Main Dashboard
 Stock analysis starting point with LSTM predictions, historical charts, and AI-generated market insights.
@@ -79,7 +79,7 @@ Technical indicators analysis with moving averages, trend detection, and AI inte
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
 **Environment (.env)**: `LM_STUDIO_URL`, `LM_STUDIO_MAX_TOKENS`, `LM_STUDIO_TEMPERATURE`, `LM_STUDIO_TIMEOUT`
 
@@ -89,7 +89,7 @@ Technical indicators analysis with moving averages, trend detection, and AI inte
 
 ---
 
-## Usage
+## 🚦 Usage
 
 ### Quick Start Guide
 
@@ -112,18 +112,22 @@ streamlit run app.py
 
 ---
 
-## API Documentation
+## 📚 API Documentation
 
 For detailed API documentation, see [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
 
 ### Key Modules
 
 #### Services
+Core services layer that handles AI/ML operations and external integrations.
+
 - `LocalLLMService` - LM Studio integration for AI analysis
 - `LMStudioEmbeddings` - Text embedding generation
 - `RAGPipeline` - Retrieval-augmented generation pipeline
 
 #### Utilities
+Helper functions for data processing, calculations, and file operations.
+
 - `stock_utils.py` - Stock data fetching and analysis
 - `pdf_utils.py` - PDF processing and chunking
 
@@ -148,35 +152,33 @@ for chunk in llm.analyze_stock_fundamentals_stream(stock_data):
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Stock-Price-Prediction/
-├── 📄 app.py                          # Main dashboard application
-├── 📁 pages/                          # Streamlit pages
-│   ├── Financial_Report_Analysis.py  # RAG-based PDF analysis
-│   ├── Investment_Summary.py         # AI investment recommendations
-│   ├── Stock_Tickers_List.py         # Browse stock symbols
-│   └── Technical_Analysis.py         # Technical indicators analysis
-├── 📁 services/                       # Core services layer
-│   ├── local_llm_service.py          # LM Studio integration
-│   ├── embeddings_service.py         # Vector embedding generation
-│   └── rag_pipeline.py               # RAG implementation
-├── 📁 utils/                          # Utility functions
-│   ├── stock_utils.py                # Stock data and metrics
-│   └── pdf_utils.py                  # PDF processing utilities
-├── 📁 config/                         # Configuration
-│   └── llm_config.py                 # LLM settings and env vars
-├── 📁 models/                         # Pre-trained models
-│   └── Stock Predictions Model.keras # LSTM neural network
-├── 📁 resources/                      # Static resources
-│   ├── NASDAQ_Active_Stocks_List.csv # US stock listings
-│   └── NSE_Active_Stocks_List.csv    # Indian stock listings
-├── 📄 requirements.txt                # Core dependencies
-├── 📄 rag_requirements.txt            # RAG-specific dependencies
-├── 📄 API_DOCUMENTATION.md            # Complete API reference
-├── 📄 DOCUMENTATION_SUMMARY.md        # Documentation overview
-└── 📄 README.md                       # This file
+├── 📄 app.py                            # Main dashboard application
+├── 📁 pages/                        # Streamlit pages
+│   ├── 📄 Financial_Report_Analysis.py  # RAG-based PDF analysis
+│   ├── 📄 Investment_Summary.py         # AI investment recommendations
+│   ├── 📄 Stock_Tickers_List.py         # Browse stock symbols
+│   └── 📄 Technical_Analysis.py         # Technical indicators analysis
+├── 📁 services/                     # Core services layer
+│   ├── 📄 local_llm_service.py          # LM Studio integration
+│   ├── 📄 embeddings_service.py         # Vector embedding generation
+│   └── 📄 rag_pipeline.py               # RAG implementation
+├── 📁 utils/                        # Utility functions
+│   ├── 📄 stock_utils.py                # Stock data and metrics
+│   └── 📄 pdf_utils.py                  # PDF processing utilities
+├── 📁 config/                       # Configuration
+│   └── 📄 llm_config.py                 # LLM settings and env vars
+├── 📁 models/                       # Pre-trained models
+│   └── 📄Stock Predictions Model.keras  # LSTM neural network
+├── 📁 resources/                    # Static resources
+│   ├── 📄 NASDAQ_Active_Stocks_List.csv # US stock listings
+│   └── 📄 NSE_Active_Stocks_List.csv    # Indian stock listings
+├── 📄 requirements.txt                  # Core dependencies
+├── 📄 API_DOCUMENTATION.md              # Complete API reference
+└── 📄 README.md                         # This file
 ```
 
 ### Module Responsibilities
@@ -190,9 +192,9 @@ Stock-Price-Prediction/
 | **config/** | Environment variables, LLM configuration |
 | **models/** | Pre-trained LSTM model for predictions |
 
+---
 
-
-## Key Concepts Explained
+## 🧠 Key Concepts Explained
 
 ### 1. LSTM (Long Short-Term Memory)
 - **What**: Neural network architecture for time-series prediction
@@ -225,22 +227,26 @@ Question → Embedding → Similarity Search → Retrieved Chunks
 
 ---
 
-## Troubleshooting
+## 🔧 Key Technologies
+
+- **LSTM**: 100-day history → 30-day predictions (75-90% accuracy) 
+- **RAG**: Document chunks + embeddings + vector search → cited answers  
+- **Embeddings**: 384D vectors (Nomic v1.5) 
+- **Local LLM**: Privacy-first AI (Gemma/Mistral/Llama)
+
+---
+
+## 🛠️ Troubleshooting
 
 ### Common Issues and Solutions
 
 #### ❌ LM Studio Not Connected
-**Symptoms**: "LM Studio Not Connected" error in sidebar
+**Symptoms**: "LM Studio Not Connected" error in sidebar,
 
 **Solutions**:
 1. Verify LM Studio is running
 2. Check server URL is `http://127.0.0.1:1234`
-## Key Technologies
 
-**LSTM**: 100-day history → 30-day predictions (75-90% accuracy) | **RAG**: Document chunks + embeddings + vector search → cited answers  
-**Embeddings**: 384D vectors (Nomic v1.5) | **Local LLM**: Privacy-first AI (Gemma/Mistral/Llama)
-
----
 
 #### ❌ Slow Performance
 **Symptoms**: Long processing times, lag
@@ -252,7 +258,6 @@ Question → Embedding → Similarity Search → Retrieved Chunks
 4. Close other applications
 5. Enable GPU acceleration in LM Studio
 
----
 
 #### ❌ Memory Errors
 **Symptoms**: Out of memory, crashes
@@ -260,103 +265,50 @@ Question → Embedding → Similarity Search → Retrieved Chunks
 **Solutions**:
 1. Use quantized models (Q4 or Q5)
 2. Reduce max_tokens in config (1024 instead of 2048)
-## Troubleshooting
-
-**LM Studio Not Connected**: Verify server running at `http://127.0.0.1:1234`, models loaded, restart server  
-**PDF Upload Issues**: Install PyPDF2, check file not encrypted, size < 200MB  
-**Stock Data Errors**: Check internet, verify symbol format (US: AAPL | India: INFY.NS)  
-**Slow Performance**: Use lighter models (4B), reduce chunk sizes, enable GPU  
-**Memory Errors**: Use quantized models (Q4/Q5), reduce max_tokens, clear cache  
-
-**Get Help**: Check [GitHub Issues](https://github.com/Preveen369/Stock-Price-Prediction/issues)
-- Add docstrings to all functions
-- Update documentation if needed
-
-4. **Test Your Changes**
-```bash
-# Run the application
-streamlit run app.py
-
-# Test all pages
-# Verify LLM integration works
-# Check for errors
-```
-
-5. **Submit Pull Request**
-- Describe your changes clearly
-- Reference any related issues
-- Include screenshots if UI changes
-
-### Contribution Guidelines
-- ✅ Add comprehensive docstrings
-- ✅ Follow existing code patterns
-- ✅ Update API documentation
-- ✅ Test all functionality
-- ✅ Keep commits atomic and well-described
-- ❌ Don't include API keys or secrets
-- ❌ Don't modify core model files without discussion
-
-### Areas for Contribution
-- 🐛 Bug fixes
-- 📝 Documentation improvements
-- ✨ New features
-- 🎨 UI/UX enhancements
-- ⚡ Performance optimizations
-- 🧪 Test coverage
 
 ---
 
-## License
+## 🤝 Contributing
+
+Pull requests are welcome! Feel free to fork the repository and suggest improvements.
+
+Steps to contribute:
+
+```bash
+# 1. Fork the repository
+# 2. Create a feature branch
+git checkout -b feature-name
+# 3. Commit your changes
+git commit -m "Add feature description"
+# 4. Push to GitHub
+git push origin feature-name
+# 5. Open a Pull Request
+```
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### MIT License Summary
-- ✅ Commercial use allowed
-- ✅ Modification allowed
-- ✅ Distribution allowed
-- ✅ Private use allowed
-- ⚠️ Liability and warranty disclaimers apply
-
-
-
-## Contact & Support
-
-### Author
-**Preveen S**
-- GitHub: [@Preveen369](https://github.com/Preveen369)
-- LinkedIn: [Preveen S](https://linkedin.com/in/preveen369)
-- Email: preveen.ai@example.com
-
-### Support
-- 🐛 **Bug Reports**: [Open an issue](https://github.com/Preveen369/Stock-Price-Prediction/issues)
-- 💡 **Feature Requests**: [Start a discussion](https://github.com/Preveen369/Stock-Price-Prediction/discussions)
-- 📖 **Documentation**: See [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
-- ❓ **Questions**: Use GitHub Discussions
-
-### Project Links
-- **Repository**: [github.com/Preveen369/Stock-Price-Prediction](https://github.com/Preveen369/Stock-Price-Prediction)
-- **Documentation**: [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
-- **Issues**: [github.com/Preveen369/Stock-Price-Prediction/issues](https://github.com/Preveen369/Stock-Price-Prediction/issues)
-
 ---
 
-## Disclaimer
+## ⚠️ Disclaimer
 
 ⚠️ **For educational purposes only. NOT financial advice. Past performance ≠ future results. AI predictions may be inaccurate. Consult qualified advisors. Use at your own risk. No warranties or liability.**
 
 ---
 
-
-### Built with ❤️ and AI
-
-**Star ⭐ this repo if you find it helpful!**
-
-[Report Bug](https://github.com/Preveen369/Stock-Price-Prediction/issues) · [Request Feature](https://github.com/Preveen369/Stock-Price-Prediction/issues) · [Contribute](https://github.com/Preveen369/Stock-Price-Prediction/pulls)
+## 📧 Contact
+For queries or suggestions:
+- 📩 Email: [spreveen123@gmail.com](mailto:spreveen123@gmail.com)
+- 🌐 LinkedIn: [www.linkedin.com/in/preveen-s](https://www.linkedin.com/in/preveen-s/)
 
 ---
 
-## Contact & Support
+## 🌟 Show Your Support
+If you like this project, please consider giving it a ⭐ on GitHub!
 
-**Author**: Preveen S | [GitHub](https://github.com/Preveen369) | [LinkedIn](https://linkedin.com/in/preveen369)
+---
 
-**Support**: [Bug Reports](https://github.com/Preveen369/Stock-Price-Prediction/issues) | [Documentation](API_DOCUMENTATION.md) | [Discussions](https://github.com/Preveen369/Stock-Price-Prediction/discussions)
+**Built with ❤️ using LSTM + Local AI LLMs**
