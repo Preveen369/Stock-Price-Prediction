@@ -60,7 +60,6 @@
 
 5. **[⚠️ Error Handling](#️-error-handling)**
    - [Connection Errors](#connection-errors)
-   - [PDF Loading Errors](#pdf-loading-errors)
    - [Stock Data Errors](#stock-data-errors)
 
 6. **[⚡ Performance Considerations](#-performance-considerations)**
@@ -858,19 +857,6 @@ llm_service = LocalLLMService()
 if not llm_service.check_connection():
     print("Error: LM Studio is not running")
     print("Please start LM Studio server at http://localhost:1234")
-```
-
-#### PDF Loading Errors
-```python
-from utils.pdf_utils import load_pdf_with_langchain
-
-try:
-    documents = load_pdf_with_langchain("./report.pdf")
-except ImportError:
-    print("Error: PyPDF2 is not installed")
-    print("Install with: pip install PyPDF2")
-except Exception as e:
-    print(f"Error loading PDF: {e}")
 ```
 
 #### Stock Data Errors
