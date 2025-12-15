@@ -11,22 +11,52 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ## 📖 Overview
 
-**Stockify** combines LSTM neural networks, local LLM integration (LM Studio), and RAG for privacy-focused stock market analysis with price predictions, technical indicators, and AI-powered document Q&A on financial reports.
+**Stockify** is an intelligent stock market analysis platform that brings together cutting-edge AI technologies for comprehensive investment research. Built with privacy as a core principle, it leverages:
+
+- 🧠 **LSTM Neural Networks** for accurate 50/100/200-day price predictions
+- 🤖 **Local LLM Integration** via LM Studio for on-device AI processing
+- 📚 **RAG Technology** for intelligent document analysis and Q&A
+- 📊 **Technical Analysis Tools** for in-depth market insights
+
+Whether you're analyzing US stocks (NASDAQ) or Indian markets (NSE), Stockify provides AI-powered recommendations, real-time data visualization, and document-based research capabilities—all while keeping your data completely private on your local machine.
 
 ---
 
-## ✨ Features
+## ✨ Features & Pages
 
-- ✅ LSTM price predictions (30-day forecasts)
-- ✅ Real-time stock data (Yahoo Finance)  
-- ✅ AI investment recommendations (BUY/HOLD/SELL)
-- ✅ RAG document Q&A with citations  
-- ✅ Technical indicators (MA, volatility, trends)
-- ✅ Multi-market (NASDAQ, NSE)  
-- ✅ Vector embeddings (FAISS semantic search)
-- ✅ Local LLM processing (privacy-first)  
-- ✅ Modular architecture
-- ✅ Streaming responses
+### 1. 🏠 Main Dashboard - Stock Price Predictions
+**Core Features:**
+- ✅ **LSTM Price Predictions** - 50/100/200-day forecasts trained on 2012-2022 market data
+- ✅ **Real-time Stock Data** - Live market data analytics from Yahoo Finance
+- ✅ **Historical Charts** - Interactive price visualization and trend analysis
+- ✅ **AI Market Insights** - Automated analysis of stock performance
+
+### 2. 📄 Financial Report Analysis - RAG-Powered Q&A
+**AI RAG Features:**
+- ✅ **Document Q&A** - Ask questions about financial PDFs in natural language
+- ✅ **Source Citations** - Answers grounded in actual document content
+- ✅ **Local LLM Processing** - Privacy-first AI analysis (no data leaves your machine)
+- ✅ **Vector Embeddings** - FAISS-powered semantic search for accurate retrieval
+
+### 3. 📈 Investment Summary - AI Recommendations
+**Investment Features:**
+- ✅ **BUY/HOLD/SELL Signals** - Intelligent recommendations with reasoning
+- ✅ **Risk Assessment** - Comprehensive risk analysis and evaluation
+- ✅ **Entry/Exit Points** - Strategic price targets for trading
+- ✅ **Streaming Responses** - Real-time AI response generation
+
+### 4. 📋 Stock Tickers List - Market Browse
+**Data Features:**
+- ✅ **Multi-Market Support** - 1000+ NASDAQ and 1000+ NSE stocks
+- ✅ **Search & Filter** - Easy stock discovery and selection
+- ✅ **Comprehensive Listings** - Full stock metadata and information
+
+### 5. 📊 Technical Analysis - Indicators & Trends
+**Technical Features:**
+- ✅ **Moving Averages** - 50-day, 100-day and 200-day MA calculations
+- ✅ **Volatility Analysis** - Price fluctuation and risk metrics
+- ✅ **Trend Detection** - Automated pattern recognition
+- ✅ **AI Interpretation** - Natural language explanations of technical data
 
 ---
 
@@ -65,32 +95,13 @@ streamlit run app.py  # Opens at http://localhost:8501
 
 ---
 
-## 📱 Pages Guide
-
-### 1. 🏠 Main Dashboard
-Stock analysis starting point with LSTM predictions, historical charts, and AI-generated market insights.
-
-### 2. 📄 Financial Report Analysis
-Upload and analyze financial PDFs using RAG. Ask questions in natural language and get AI answers with source citations.
-
-### 3. 📈 Investment Summary
-AI-powered investment recommendations with risk assessment, entry/exit points, and BUY/HOLD/SELL signals.
-
-### 4. 📋 Stock Tickers List
-Browse 1000+ NASDAQ and 1000+ NSE stocks datas with search and filter capabilities.
-
-### 5. 📊 Technical Analysis
-Technical indicators analysis with moving averages, trend detection, and AI interpretation.
-
----
-
 ## ⚙️ Configuration
 
-**Environment (.env)**: `LM_STUDIO_URL`, `LM_STUDIO_MAX_TOKENS`, `LM_STUDIO_TEMPERATURE`, `LM_STUDIO_TIMEOUT`
+- **Environment (.env)**: `LM_STUDIO_URL`, `LM_STUDIO_MAX_TOKENS`, `LM_STUDIO_TEMPERATURE`, `LM_STUDIO_TIMEOUT`
 
-**LM Studio**: Load `gemma-3-4b` (chat) + `nomic-embed-text-v1.5` (embeddings) → Start server at `http://localhost:1234`
+- **LM Studio**: Load `gemma-3-4b` (chat) + `nomic-embed-text-v1.5` (embeddings) → Start server at `http://localhost:1234`
 
-**Settings**: See `config/llm_config.py` for defaults (max_tokens: 2048, temperature: 0.3)
+- **Settings**: See `config/llm_config.py` for defaults (max_tokens: 2048, temperature: 0.3)
 
 ---
 
@@ -108,12 +119,11 @@ streamlit run app.py
 
 ### Workflow Examples
 
-**Analyze Stock**: Main Dashboard → Enter Symbol (AAPL) → View Charts & Predictions  
-**Technical Analysis**: Technical Analysis Page → View Moving Averages & Trends  
-**Investment Advice**: Investment Summary → Risk Assessment → AI Recommendations  
-**Document Q&A**: Financial Report → Upload PDF → Ask Questions → Get Answers
-
-**Stock Symbols**: US (AAPL, TSLA) | India (INFY.NS, TCS.NS)
+- **Analyze Stock**: Main Dashboard → Enter Symbol (AAPL) → View Charts & Predictions 
+- **NASDAQ | NSE Stock Symbols**: US (AAPL, TSLA) | India (INFY.NS, TCS.NS) 
+- **Technical Analysis**: Technical Analysis Page → View Moving Averages & Trends  
+- **Investment Advice**: Investment Summary → Risk Assessment → AI Recommendations  
+- **Document Q&A**: Financial Report → Upload PDF → Ask Questions → Get Answers
 
 ---
 
@@ -203,9 +213,9 @@ Stock-Price-Prediction/
 
 ### 1. LSTM (Long Short-Term Memory)
 - **What**: Neural network architecture for time-series prediction
-- **How**: Uses 100 days of historical prices to predict next 30 days
+- **How**: Uses 100 days of historical prices to predict next 50/100/200 days
 - **Accuracy**: Typically achieves 75-90% accuracy on test data
-- **Training**: Pre-trained on thousands of stock patterns
+- **Training**: Pre-trained on 2012-2022 historical data across thousands of stock patterns
 
 ### 2. RAG (Retrieval-Augmented Generation)
 ```
@@ -234,7 +244,7 @@ Question → Embedding → Similarity Search → Retrieved Chunks
 
 ## 🔧 Key Technologies
 
-- **LSTM**: 100-day history → 30-day predictions (75-90% accuracy) 
+- **LSTM**: 100-day history → 50/100/200-day predictions (75-90% accuracy) 
 - **RAG**: Document chunks + embeddings + vector search → cited answers  
 - **Embeddings**: 384D vectors (Nomic v1.5) 
 - **Local LLM**: Privacy-first AI (Gemma/Mistral/Llama)
