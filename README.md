@@ -2,10 +2,14 @@
 
 An intelligent stock market prediction and analysis platform powered by LSTM Neural Networks and Local LLM integration.
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B.svg)](https://streamlit.io/)
-[![LangChain](https://img.shields.io/badge/LangChain-0.1+-green.svg)](https://python.langchain.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Web-UI](https://img.shields.io/badge/Web_UI-Streamlit-FF4B4B.svg)
+![Framework](https://img.shields.io/badge/Framework-LangChain-green.svg)
+![ML](https://img.shields.io/badge/ML-TensorFlow/Keras-orange.svg)
+![LLM](https://img.shields.io/badge/LLM-LM_Studio-purple.svg)
+![Vector-DB](https://img.shields.io/badge/VectorDB-FAISS-emerald.svg)
+![Notebook](https://img.shields.io/badge/Notebook-Google_Colab-F9AB00.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
 
@@ -66,13 +70,13 @@ Whether you're analyzing US stocks (NASDAQ) or Indian markets (NSE), Stockify pr
 Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock LSTM, PDF)
 ```
 
-**Tech Stack**: Streamlit • TensorFlow/Keras • LangChain • FAISS • LM Studio • yfinance • PyPDF2 • Pandas • NumPy
+**Tech Stack**: Streamlit • Python • TensorFlow/Keras • LangChain • FAISS • LM Studio • yfinance • PyPDF2 • Pandas • NumPy • Google Colab
 
 ---
 
 ## 💻 Installation
 
-**Prerequisites**: Python 3.8+, LM Studio, 8GB+ RAM
+**Prerequisites**: Python 3.8+, Google Colab, LM Studio, 8GB+ RAM
 
 ```bash
 # Clone and setup
@@ -310,7 +314,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⚠️ Disclaimer
 
-⚠️ **For educational purposes only. NOT financial advice. Past performance ≠ future results. AI predictions may be inaccurate. Consult qualified advisors. Use at your own risk. No warranties or liability.**
+*For educational purposes only. NOT financial advice. Past performance ≠ future results. AI predictions may be inaccurate. Consult qualified advisors. Use at your own risk. No warranties or liability.*
 
 ---
 
