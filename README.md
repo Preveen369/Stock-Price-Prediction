@@ -2,12 +2,14 @@
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Web-UI](https://img.shields.io/badge/Web_UI-Streamlit-FF4B4B.svg)
-![Framework](https://img.shields.io/badge/Framework-LangChain-green.svg)
+![Framework](https://img.shields.io/badge/Framework-LangChain-emerald.svg)
 ![Deep-Learning](https://img.shields.io/badge/Deep_Learning-TensorFlow/Keras-orange.svg)
-![Machine-Learning](https://img.shields.io/badge/Machine-Learning-Scikit--Learn-F7931E.svg)
+![Machine-Learning](https://img.shields.io/badge/Machine_Learning-Scikit--Learn-aqua.svg)
 ![LLM](https://img.shields.io/badge/LLM-LM_Studio-purple.svg)
 ![Vector-DB](https://img.shields.io/badge/VectorDB-FAISS-emerald.svg)
+![Data-Source](https://img.shields.io/badge/Data_Source-yfinance-crimson.svg)
 ![Notebook](https://img.shields.io/badge/Notebook-Google_Colab-F9AB00.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 
 **Stockify** is a comprehensive AI-powered stock market intelligence platform that combines advanced machine learning, natural language processing, and document analysis for complete investment research. Built with privacy as a core principle, it leverages:
