@@ -617,6 +617,39 @@ print(f"{emoji} Trend: {trend}")  # "📈 Trend: Bullish"
 
 ---
 
+##### `get_currency_symbol(stock_symbol)`
+
+💱 Get currency symbol based on stock exchange.
+
+**📥 Parameters**:
+- `stock_symbol` (str): Stock ticker symbol (e.g., 'AAPL', 'INFY.NS')
+
+**📤 Returns**:
+- `str`: Currency symbol
+  - '₹' for NSE (Indian stocks with .NS suffix)
+  - '$' for NASDAQ and other exchanges
+
+**Example**:
+```python
+from utils.stock_utils import get_currency_symbol
+
+# US stock (NASDAQ)
+currency = get_currency_symbol("AAPL")
+print(f"Currency: {currency}")  # "$"
+
+# Indian stock (NSE)
+currency = get_currency_symbol("INFY.NS")
+print(f"Currency: {currency}")  # "₹"
+
+# Format price with currency
+price = 150.50
+symbol = "AAPL"
+currency = get_currency_symbol(symbol)
+print(f"Price: {currency}{price:.2f}")  # "Price: $150.50"
+```
+
+---
+
 ### PDF Utilities
 
 **📦 Module**: `utils.pdf_utils`  

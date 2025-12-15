@@ -13,6 +13,7 @@ Features:
 import streamlit as st
 import pandas as pd
 import os
+from utils.stock_utils import get_currency_symbol
 
 # Page config
 st.set_page_config(
@@ -127,7 +128,9 @@ if current_data is not None and not current_data.empty:
     with col4:
         if 'Last_Price(5d)' in filtered_data.columns:
             avg_price = filtered_data[filtered_data['Last_Price(5d)'] > 0]['Last_Price(5d)'].mean()
-            st.metric("📊 Avg Price", f"${avg_price:.2f}" if not pd.isna(avg_price) else "N/A")
+            # Determine currency based on market
+            currency = '₹' if market_code == 'NSE' else '$'
+            st.metric("📊 Avg Price", f"{currency}{avg_price:.2f}" if not pd.isna(avg_price) else "N/A")
         else:
             st.metric("📊 Avg Price", "N/A")
     
@@ -166,8 +169,9 @@ if current_data is not None and not current_data.empty:
         
         # Format price column
         if 'Last_Price(5d)' in display_df.columns:
+            currency = '₹' if market_code == 'NSE' else '$'
             display_df['Last_Price(5d)'] = display_df['Last_Price(5d)'].apply(
-                lambda x: f"${x:.2f}" if pd.notna(x) and x > 0 else "N/A"
+                lambda x: f"{currency}{x:.2f}" if pd.notna(x) and x > 0 else "N/A"
             )
         
         # Display with styling
@@ -200,12 +204,13 @@ if current_data is not None and not current_data.empty:
                         full_symbol = symbol
                     
                     price = stock['Last_Price(5d)'] if pd.notna(stock['Last_Price(5d)']) else 0
+                    currency = '₹' if market_code == 'NSE' else '$'
                     
                     st.markdown(f"""
                     <div style='padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin: 5px 0;'>
                         <b>{symbol}</b><br>
                         <small>{stock['NAME OF COMPANY'][:30]}...</small><br>
-                        <span style='color: green; font-weight: bold;'>${price:.2f}</span>
+                        <span style='color: green; font-weight: bold;'>{currency}{price:.2f}</span>
                     </div>
                     """, unsafe_allow_html=True)
         else:
