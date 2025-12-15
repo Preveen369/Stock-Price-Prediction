@@ -1,7 +1,5 @@
 # 🚀 Stockify - AI-Powered Stock Market Intelligence Platform
 
-A comprehensive stock market analysis and intelligence platform powered by LSTM Neural Networks, Local LLM integration, and RAG technology for document-based research.
-
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Web-UI](https://img.shields.io/badge/Web_UI-Streamlit-FF4B4B.svg)
 ![Framework](https://img.shields.io/badge/Framework-LangChain-green.svg)
@@ -12,9 +10,6 @@ A comprehensive stock market analysis and intelligence platform powered by LSTM 
 ![Notebook](https://img.shields.io/badge/Notebook-Google_Colab-F9AB00.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
----
-
-## 📖 Overview
 
 **Stockify** is a comprehensive AI-powered stock market intelligence platform that combines advanced machine learning, natural language processing, and document analysis for complete investment research. Built with privacy as a core principle, it leverages:
 
