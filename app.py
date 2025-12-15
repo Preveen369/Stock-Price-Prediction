@@ -1,12 +1,14 @@
 """
-Stockify - AI-Enhanced Stock Market Predictor
-Main application dashboard for stock price prediction and analysis
+Stockify - AI-Powered Stock Market Intelligence Platform
+Main application dashboard for comprehensive stock market analysis
 
 Features:
 - Real-time stock data fetching
 - LSTM neural network predictions
 - Moving average analysis
 - AI-powered insights via local LLM
+- RAG-based document analysis
+- Investment recommendations
 """
 
 import streamlit as st
@@ -25,7 +27,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Page config
 st.set_page_config(
-    page_title="Stockify - AI Stock Predictor", 
+    page_title="Stockify - AI Stock Intelligence Platform", 
     page_icon="🚀",
     layout="wide"
 )
@@ -37,14 +39,15 @@ initialize_session_state()
 model = load_prediction_model()
 llm_service = init_local_llm()
 
-st.title('🚀 Stockify - AI-Enhanced Stock Market Predictor')
-st.markdown("*Powered by Local LLM + LSTM Neural Network*")
+st.title('🚀 Stockify - AI-Powered Stock Market Intelligence Platform')
+st.markdown("*Powered by Local LLM + LSTM Neural Network + RAG Technology*")
 
 st.sidebar.markdown("### ℹ️ **About:**")
 st.sidebar.info("""
-This app provides AI-enhanced stock market predictions using:
+This platform provides comprehensive AI-powered stock market intelligence:
 - **LSTM Neural Network** for price prediction
-- **Local LLM** for intelligent analysis
+- **Local LLM** for intelligent analysis & recommendations
+- **RAG Technology** for document-based research
 - **Technical Indicators** for trend analysis
 """)
 

@@ -1,11 +1,12 @@
-# 🚀 Stockify - AI Stock Market Predictor
+# 🚀 Stockify - AI-Powered Stock Market Intelligence Platform
 
-An intelligent stock market prediction and analysis platform powered by LSTM Neural Networks and Local LLM integration.
+A comprehensive stock market analysis and intelligence platform powered by LSTM Neural Networks, Local LLM integration, and RAG technology for document-based research.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Web-UI](https://img.shields.io/badge/Web_UI-Streamlit-FF4B4B.svg)
 ![Framework](https://img.shields.io/badge/Framework-LangChain-green.svg)
-![ML](https://img.shields.io/badge/ML-TensorFlow/Keras-orange.svg)
+![Deep-Learning](https://img.shields.io/badge/Deep_Learning-TensorFlow/Keras-orange.svg)
+![ML](https://img.shields.io/badge/ML-Scikit--Learn-F7931E.svg)
 ![LLM](https://img.shields.io/badge/LLM-LM_Studio-purple.svg)
 ![Vector-DB](https://img.shields.io/badge/VectorDB-FAISS-emerald.svg)
 ![Notebook](https://img.shields.io/badge/Notebook-Google_Colab-F9AB00.svg)
@@ -15,7 +16,7 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ## 📖 Overview
 
-**Stockify** is an intelligent stock market analysis platform that brings together cutting-edge AI technologies for comprehensive investment research. Built with privacy as a core principle, it leverages:
+**Stockify** is a comprehensive AI-powered stock market intelligence platform that combines advanced machine learning, natural language processing, and document analysis for complete investment research. Built with privacy as a core principle, it leverages:
 
 - 🧠 **LSTM Neural Networks** for accurate 50/100/200-day price predictions
 - 🤖 **Local LLM Integration** via LM Studio for on-device AI processing
@@ -218,6 +219,8 @@ Stock-Price-Prediction/
 ### 1. LSTM (Long Short-Term Memory)
 - **What**: Neural network architecture for time-series prediction
 - **How**: Uses 100 days of historical prices to predict next 50/100/200 days
+- **Framework**: Built with TensorFlow/Keras for deep learning
+- **Preprocessing**: Scikit-learn for data scaling and normalization
 - **Accuracy**: Typically achieves 75-90% accuracy on test data
 - **Training**: Pre-trained on 2012-2022 historical data across thousands of stock patterns
 
@@ -330,4 +333,4 @@ If you like this project, please consider giving it a ⭐ on GitHub!
 
 ---
 
-**Built with ❤️ using LSTM + Local AI LLMs**
+**Built with ❤️ using DL/ML LSTM + Local AI LLMs + RAG**

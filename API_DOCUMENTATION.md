@@ -1,6 +1,6 @@
 # 📚 API Documentation
 
-> Complete API reference for Stockify - AI Stock Market Predictor
+> Complete API reference for Stockify - AI-Powered Stock Market Intelligence Platform
 
 > To view the about project overview click [View Project README](README.md)
 
