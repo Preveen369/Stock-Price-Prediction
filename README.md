@@ -9,21 +9,6 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ---
 
-## 📋 Table of Contents
-
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Architecture](#architecture)
-4. [Installation](#installation)
-5. [Pages Guide](#pages-guide)
-6. [Configuration](#configuration)
-7. [Usage](#usage)
-8. [API Documentation](#api-documentation)
-9. [Project Structure](#project-structure)
-10. [Contributing](#contributing)
-
----
-
 ## Overview
 
 **Stockify** combines LSTM neural networks, local LLM integration (LM Studio), and RAG for privacy-focused stock market analysis with price predictions, technical indicators, and AI-powered document Q&A on financial reports.
