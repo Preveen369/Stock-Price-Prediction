@@ -193,6 +193,8 @@ Stock-Price-Prediction/
 │   ├── 📄 NASDAQ_Active_Stocks_List.csv # US stock listings
 │   └── 📄 NSE_Active_Stocks_List.csv    # Indian stock listings
 ├── 📄 requirements.txt                  # Core dependencies
+├── 📄 stock_market_prediction.ipynb     # LSTM model training notebook
+├── 📄 stocks_list_extraction.ipynb      # Stock tickers extraction notebook
 ├── 📄 API_DOCUMENTATION.md              # Complete API reference
 └── 📄 README.md                         # This file
 ```
