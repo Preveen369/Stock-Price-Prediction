@@ -17,18 +17,23 @@ An intelligent stock market prediction and analysis platform powered by LSTM Neu
 
 ## ✨ Features
 
-✅ LSTM price predictions (30-day forecasts) | Real-time stock data (Yahoo Finance)  
-✅ AI investment recommendations (BUY/HOLD/SELL) | RAG document Q&A with citations  
-✅ Technical indicators (MA, volatility, trends) | Multi-market (NASDAQ, NSE)  
-✅ Vector embeddings (FAISS semantic search) | Local LLM processing (privacy-first)  
-✅ Modular architecture | Streaming responses | Comprehensive documentation  
+- ✅ LSTM price predictions (30-day forecasts)
+- ✅ Real-time stock data (Yahoo Finance)  
+- ✅ AI investment recommendations (BUY/HOLD/SELL)
+- ✅ RAG document Q&A with citations  
+- ✅ Technical indicators (MA, volatility, trends)
+- ✅ Multi-market (NASDAQ, NSE)  
+- ✅ Vector embeddings (FAISS semantic search)
+- ✅ Local LLM processing (privacy-first)  
+- ✅ Modular architecture
+- ✅ Streaming responses
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock, PDF, LSTM)
+Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock LSTM, PDF)
 ```
 
 **Tech Stack**: Streamlit • TensorFlow/Keras • LangChain • FAISS • LM Studio • yfinance • PyPDF2 • Pandas • NumPy
@@ -44,7 +49,7 @@ Streamlit UI → Services (LocalLLM, Embeddings, RAG) → Utils (Stock, PDF, LST
 git clone https://github.com/Preveen369/Stock-Price-Prediction.git
 cd Stock-Price-Prediction
 python -m venv venv
-venv\Scripts\activate  # Windows | source venv/bin/activate (Linux/Mac)
+venv\Scripts\activate  # Windows 
 
 # Install dependencies
 pip install -r requirements.txt
@@ -72,7 +77,7 @@ Upload and analyze financial PDFs using RAG. Ask questions in natural language a
 AI-powered investment recommendations with risk assessment, entry/exit points, and BUY/HOLD/SELL signals.
 
 ### 4. 📋 Stock Tickers List
-Browse 2000+ NASDAQ and 500+ NSE stocks with search and filter capabilities.
+Browse 1000+ NASDAQ and 1000+ NSE stocks datas with search and filter capabilities.
 
 ### 5. 📊 Technical Analysis
 Technical indicators analysis with moving averages, trend detection, and AI interpretation.
