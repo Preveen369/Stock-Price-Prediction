@@ -4,7 +4,7 @@
 ![Web-UI](https://img.shields.io/badge/Web_UI-Streamlit-FF4B4B.svg)
 ![Framework](https://img.shields.io/badge/Framework-LangChain-green.svg)
 ![Deep-Learning](https://img.shields.io/badge/Deep_Learning-TensorFlow/Keras-orange.svg)
-![Machine-Learning](https://img.shields.io/badge/Machine-Learning-Scikit--Learn-F7931E.svg)
+![Machine-Learning](https://img.shields.io/badge/Machine_Learning-Scikit--Learn-F7931E.svg)
 ![LLM](https://img.shields.io/badge/LLM-LM_Studio-purple.svg)
 ![Vector-DB](https://img.shields.io/badge/VectorDB-FAISS-emerald.svg)
 ![Notebook](https://img.shields.io/badge/Notebook-Google_Colab-F9AB00.svg)
