@@ -12,21 +12,13 @@
    - [LocalLLMService](#localllmservice) - LM Studio integration
      - [Constructor](#-constructor)
      - [Methods](#️-methods)
-       - [check_connection()](#check_connection---bool)
-       - [get_available_models()](#get_available_models---liststr)
-       - [analyze_stock_fundamentals_stream()](#analyze_stock_fundamentals_streamstock_data-dict---generator)
-       - [generate_investment_summary_stream()](#generate_investment_summary_streamtechnical_analysis-str-fundamental_analysis-str---generator)
    - [LMStudioEmbeddings](#lmstudioembeddings) - Text embeddings generation
      - [Constructor](#constructor)
      - [Methods](#methods)
-       - [embed_documents()](#embed_documentstexts-liststr---listlistfloat)
-       - [embed_query()](#embed_querytext-str---listfloat)
      - [Factory Function](#factory-function)
-       - [get_embeddings_model()](#get_embeddings_modelbase_url-str--http127001234---lmstudioembeddings)
    - [RAGPipeline](#ragpipeline) - Document Q&A pipeline
      - [Constructor](#constructor-1)
      - [Methods](#methods-1)
-       - [query()](#queryquestion-str-return_sources-bool--true---dict)
 
 2. **[🛠️ Utilities](#️-utilities)**
    - [Stock Utilities](#stock-utilities) - Stock data & analysis functions
