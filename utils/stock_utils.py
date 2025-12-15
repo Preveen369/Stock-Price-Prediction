@@ -14,7 +14,7 @@ from config.llm_config import LM_STUDIO_CONFIG
 
 
 @st.cache_data
-def download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2022-12-31'):
+def download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2025-12-14'):
     """
     Download stock data from Yahoo Finance with caching
     
@@ -107,6 +107,38 @@ def make_predictions(model, data_test_scale, scaler):
     return predict, y
 
 
+def predict_next_day(model, data, scaler=None):
+    """
+    Predict the next day's stock price using the most recent 100 days
+    
+    Args:
+        model: Trained Keras model
+        data: DataFrame containing stock price data
+        scaler: MinMaxScaler instance (if None, creates new one)
+        
+    Returns:
+        float: Predicted next day price
+    """
+    if scaler is None:
+        scaler = MinMaxScaler(feature_range=(0,1))
+        scaler.fit(data.Close.values.reshape(-1, 1))
+    
+    # Get the last 100 days of closing prices
+    last_100_days = data.Close.tail(100).values.reshape(-1, 1)
+    last_100_days_scaled = scaler.transform(last_100_days)
+    
+    # Reshape for LSTM input: (1, 100, 1)
+    x_input = last_100_days_scaled.reshape(1, 100, 1)
+    
+    # Make prediction
+    next_day_scaled = model.predict(x_input, verbose=0)
+    
+    # Inverse transform to get actual price
+    next_day_price = scaler.inverse_transform(next_day_scaled)[0][0]
+    
+    return next_day_price
+
+
 def calculate_metrics(data):
     """
     Calculate key financial metrics and technical indicators
@@ -146,20 +178,6 @@ def calculate_metrics(data):
     }
 
 
-def calculate_prediction_accuracy(y_actual, y_predicted):
-    """
-    Calculate model prediction accuracy using MAPE (Mean Absolute Percentage Error)
-    
-    Args:
-        y_actual: Array of actual stock prices
-        y_predicted: Array of predicted stock prices
-        
-    Returns:
-        float: Accuracy percentage (100 - MAPE)
-    """
-    return 100 - (np.mean(np.abs((y_actual - y_predicted) / y_actual)) * 100)
-
-
 def prepare_stock_data_for_llm(stock_symbol, metrics):
     """
     Prepare stock data dictionary for LLM analysis
@@ -171,20 +189,21 @@ def prepare_stock_data_for_llm(stock_symbol, metrics):
     Returns:
         dict: Formatted data dictionary for LLM processing
     """
+    currency = get_currency_symbol(stock_symbol)
     return {
         "symbol": stock_symbol.strip().upper(),
         "company_name": f"Company {stock_symbol.strip().upper()}",
         "sector": "Technology",
         "financial_data": f"""
-        Latest Price: ${metrics['latest_price'].item():.2f}
+        Latest Price: {currency}{metrics['latest_price'].item():.2f}
         Daily Change: {metrics['price_change'].item():.2f}%
         20-Day Volatility: {metrics['volatility'].item():.2f}%
         Average Volume: {metrics['volume_avg'].item()}
         """,
         "technical_data": f"""
-        50-Day MA: ${metrics['ma_50'].item():.2f} (Price is {metrics['price_vs_ma50'].item():.1f}% {'above' if metrics['price_vs_ma50'].item() > 0 else 'below'})
-        100-Day MA: ${metrics['ma_100'].item():.2f} (Price is {metrics['price_vs_ma100'].item():.1f}% {'above' if metrics['price_vs_ma100'].item() > 0 else 'below'})
-        200-Day MA: ${metrics['ma_200'].item():.2f} (Price is {metrics['price_vs_ma200'].item():.1f}% {'above' if metrics['price_vs_ma200'].item() > 0 else 'below'})
+        50-Day MA: {currency}{metrics['ma_50'].item():.2f} (Price is {metrics['price_vs_ma50'].item():.1f}% {'above' if metrics['price_vs_ma50'].item() > 0 else 'below'})
+        100-Day MA: {currency}{metrics['ma_100'].item():.2f} (Price is {metrics['price_vs_ma100'].item():.1f}% {'above' if metrics['price_vs_ma100'].item() > 0 else 'below'})
+        200-Day MA: {currency}{metrics['ma_200'].item():.2f} (Price is {metrics['price_vs_ma200'].item():.1f}% {'above' if metrics['price_vs_ma200'].item() > 0 else 'below'})
         Trend: {'Bullish' if metrics['price_vs_ma50'].item() > 0 and metrics['price_vs_ma100'].item() > 0 else 'Bearish' if metrics['price_vs_ma50'].item() < 0 and metrics['price_vs_ma100'].item() < 0 else 'Neutral'}
         """
     }
@@ -226,6 +245,24 @@ def validate_stock_input(stock):
     if not stock or stock.strip() == '':
         return None, "Please enter a valid stock symbol to get predictions."
     return stock.strip().upper(), None
+
+
+def get_currency_symbol(stock_symbol):
+    """
+    Get currency symbol based on stock exchange
+    
+    Args:
+        stock_symbol: Stock ticker symbol
+        
+    Returns:
+        str: Currency symbol (₹ for NSE/BSE, $ for others)
+    """
+    if stock_symbol and '.NS' in stock_symbol.upper():
+        return '₹'
+    elif stock_symbol and '.BO' in stock_symbol.upper():
+        return '₹'
+    else:
+        return '$'
 
 
 def display_llm_sidebar_status(llm_service):

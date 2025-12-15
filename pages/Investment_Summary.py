@@ -18,8 +18,9 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.stock_utils import (
-    init_local_llm, calculate_prediction_accuracy, 
-    display_llm_sidebar_status
+    init_local_llm, 
+    display_llm_sidebar_status,
+    predict_next_day, get_currency_symbol
 )
 
 st.set_page_config(
@@ -81,18 +82,22 @@ st.subheader(f'📈 Investment Summary for {stock_symbol}')
 # Investment Overview Metrics
 col1, col2, col3 = st.columns(3)
 
-next_prediction = predict[-1]
+# Get next day prediction using the proper function
+from utils.stock_utils import load_prediction_model
+model = load_prediction_model()
+next_prediction = predict_next_day(model, data)
 prediction_change = ((next_prediction - metrics['latest_price']) / metrics['latest_price']) * 100
 range_min = data.Close.min()
 range_max = data.Close.max()
 range_position = ((metrics['latest_price'] - range_min) / (range_max - range_min)) * 100
-accuracy = calculate_prediction_accuracy(y, predict)
+
+currency = get_currency_symbol(stock_symbol)
 
 with col1:
     pred_change_val = prediction_change.item()
     st.metric(
         label="⏭️ Next Prediction", 
-        value=f"${next_prediction.item():.2f}"
+        value=f"{currency}{next_prediction:.2f}"
     )
 
 with col2:
@@ -118,8 +123,7 @@ if llm_service.check_connection():
     ma100_val = metrics['price_vs_ma100'].item()
     ma200_val = metrics['price_vs_ma200'].item()
     price_change_val = metrics['price_change'].item()
-    accuracy_val = accuracy.item()
-    next_pred_val = next_prediction.item()
+    next_pred_val = next_prediction
     pred_change_val = prediction_change.item()
     range_min_val = range_min.item()
     range_max_val = range_max.item()
@@ -127,19 +131,18 @@ if llm_service.check_connection():
     
     technical_summary = f"""
     Technical Analysis Summary for {stock_symbol}:
-    - Current Price: ${latest_price_val:.2f}
+    - Current Price: {currency}{latest_price_val:.2f}
     - Trend: {'Bullish' if ma50_val > 0 and ma100_val > 0 else 'Bearish' if ma50_val < 0 and ma100_val < 0 else 'Neutral'}
-    - Model Prediction Accuracy: {accuracy_val:.1f}%
     - Volatility: {volatility_val:.2f}%
     - Price vs MA50: {ma50_val:+.1f}%
     - Price vs MA100: {ma100_val:+.1f}%
     - Price vs MA200: {ma200_val:+.1f}%
-    - Model Next Day Prediction: ${next_pred_val:.2f} ({pred_change_val:+.1f}%)
+    - Model Next Day Prediction: {currency}{next_pred_val:.2f} ({pred_change_val:+.1f}%)
     """
     
     price_metrics = f"""
     Price & Risk Metrics for {stock_symbol}:
-    - 52-Week Range: ${range_min_val:.2f} - ${range_max_val:.2f}
+    - 52-Week Range: {currency}{range_min_val:.2f} - {currency}{range_max_val:.2f}
     - Current Position in Range: {range_pos_val:.1f}%
     - Daily Change: {price_change_val:+.2f}%
     - Average Daily Volume: {metrics['volume_avg']}
@@ -237,10 +240,10 @@ with col1:
 
 with col2:
     st.markdown("### 🎯 **Price Targets**")
-    st.markdown(f"**Immediate Target:** ${next_prediction.item():.2f}")
-    st.markdown(f"**Resistance Level:** ${range_max.item():.2f}")
-    st.markdown(f"**Support Level:** ${range_min.item():.2f}")
-    st.markdown(f"**Stop Loss:** ${(metrics['latest_price'] * 0.95).item():.2f}")
+    st.markdown(f"**Immediate Target:** {currency}{next_prediction:.2f}")
+    st.markdown(f"**Resistance Level:** {currency}{range_max.item():.2f}")
+    st.markdown(f"**Support Level:** {currency}{range_min.item():.2f}")
+    st.markdown(f"**Stop Loss:** {currency}{(metrics['latest_price'] * 0.95).item():.2f}")
 
 with col3:
     st.markdown("### ⏱️ **Time Horizon**")

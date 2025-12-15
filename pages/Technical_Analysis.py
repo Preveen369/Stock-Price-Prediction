@@ -17,9 +17,9 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.stock_utils import (
-    init_local_llm, calculate_prediction_accuracy, 
+    init_local_llm, 
     prepare_stock_data_for_llm, display_llm_sidebar_status,
-    get_trend_info
+    get_trend_info, get_currency_symbol
 )
 
 st.set_page_config(
@@ -85,17 +85,15 @@ trend_emoji, trend_text, trend_color = get_trend_info(
     metrics['price_vs_ma50'], metrics['price_vs_ma100']
 )
 
+currency = get_currency_symbol(stock_symbol)
+
 with col1:
-    st.metric("💲 Current Price", f"${metrics['latest_price'].item():.2f}")
+    st.metric("💲 Current Price", f"{currency}{metrics['latest_price'].item():.2f}")
 
 with col2:
     st.metric("📈 Trend", f"{trend_emoji} {trend_text}")
 
 with col3:
-    accuracy = calculate_prediction_accuracy(y, predict)
-    st.metric("🎯 Model Accuracy", f"{accuracy.item():.1f}%")
-
-with col4:
     st.metric("📊 Volatility", f"{metrics['volatility'].item():.2f}%")
 
 # Moving Average Analysis
@@ -112,7 +110,7 @@ with col1:
         f"{ma50_status} ({ma50_val:.1f}%)",
         delta=None
     )
-    st.markdown(f"**MA50 Price:** ${metrics['ma_50'].item():.2f}")
+    st.markdown(f"**MA50 Price:** {currency}{metrics['ma_50'].item():.2f}")
     
 with col2:
     ma100_val = metrics['price_vs_ma100'].item()
@@ -123,7 +121,7 @@ with col2:
         f"{ma100_status} ({ma100_val:.1f}%)",
         delta=None
     )
-    st.markdown(f"**MA100 Price:** ${metrics['ma_100'].item():.2f}")
+    st.markdown(f"**MA100 Price:** {currency}{metrics['ma_100'].item():.2f}")
     
 with col3:
     ma200_val = metrics['price_vs_ma200'].item()
@@ -134,7 +132,7 @@ with col3:
         f"{ma200_status} ({ma200_val:.1f}%)",
         delta=None
     )
-    st.markdown(f"**MA200 Price:** ${metrics['ma_200'].item():.2f}")
+    st.markdown(f"**MA200 Price:** {currency}{metrics['ma_200'].item():.2f}")
 
 # Technical Analysis Content
 if llm_service.check_connection():

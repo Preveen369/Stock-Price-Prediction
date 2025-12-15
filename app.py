@@ -17,7 +17,7 @@ from utils.stock_utils import (
     download_stock_data, load_prediction_model, init_local_llm,
     prepare_prediction_data, make_predictions, calculate_metrics,
     initialize_session_state, validate_stock_input, display_llm_sidebar_status,
-    display_market_info
+    display_market_info, predict_next_day, get_currency_symbol
 )
 
 # Add project root to path
@@ -65,7 +65,7 @@ if error_message:
     st.stop()
 
 start = '2012-01-01'
-end = '2022-12-31'
+end = '2025-12-14'
 
 # Clear cache if stock symbol changes
 if stock_symbol != st.session_state.current_stock:
@@ -99,12 +99,15 @@ if stock_symbol:
     # Store data in session state
     st.session_state.stock_data = data
     
+    # Get currency symbol for display
+    currency = get_currency_symbol(stock_symbol)
+    
     # Display stock data
     st.subheader('📈 Stock Data Overview')
     
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.metric("Current Price", f"${data.Close.iloc[-1].item():.2f}")
+        st.metric("Current Price", f"{currency}{data.Close.iloc[-1].item():.2f}")
     with col2:
         price_change = ((data.Close.iloc[-1] - data.Close.iloc[-2]) / data.Close.iloc[-2]) * 100
         st.metric("Daily Change", f"{price_change.item():.2f}%")
@@ -128,6 +131,11 @@ if stock_symbol:
     metrics = calculate_metrics(data)
     st.session_state.metrics = metrics
     
+    # Calculate next day prediction and add to overview
+    next_prediction = predict_next_day(model, data)
+    with col5:
+        st.metric("Next Day Prediction", f"{currency}{next_prediction:.2f}")
+    
     # Display charts
     st.subheader('📊 Technical Analysis Charts')
     
@@ -140,8 +148,8 @@ if stock_symbol:
         plt.plot(ma_50_days, 'r', label='MA50', linewidth=2)
         plt.plot(data.Close, 'g', label='Closing Price', linewidth=1)
         plt.title(f'{stock_symbol} - Price vs 50-Day Moving Average')
-        plt.xlabel('Date')
-        plt.ylabel('Price ($)')
+        plt.xlabel('Year')
+        plt.ylabel(f'Price ({currency})')
         plt.legend()
         plt.grid(True, alpha=0.3)
         st.pyplot(fig1)
@@ -153,8 +161,8 @@ if stock_symbol:
         plt.plot(ma_100_days, 'b', label='MA100', linewidth=2)
         plt.plot(data.Close, 'g', label='Closing Price', linewidth=1)
         plt.title(f'{stock_symbol} - Price vs Moving Averages (50 & 100 Days)')
-        plt.xlabel('Date')
-        plt.ylabel('Price ($)')
+        plt.xlabel('Year')
+        plt.ylabel(f'Price ({currency})')
         plt.legend()
         plt.grid(True, alpha=0.3)
         st.pyplot(fig2)
@@ -166,8 +174,8 @@ if stock_symbol:
         plt.plot(ma_200_days, 'b', label='MA200', linewidth=2)
         plt.plot(data.Close, 'g', label='Closing Price', linewidth=1)
         plt.title(f'{stock_symbol} - Price vs Moving Averages (100 & 200 Days)')
-        plt.xlabel('Date')
-        plt.ylabel('Price ($)')
+        plt.xlabel('Year')
+        plt.ylabel(f'Price ({currency})')
         plt.legend()
         plt.grid(True, alpha=0.3)
         st.pyplot(fig3)
@@ -178,23 +186,7 @@ if stock_symbol:
         plt.plot(predict, 'r', label='Predicted Price', linewidth=2)
         plt.title(f'{stock_symbol} - Actual vs Predicted Stock Price')
         plt.xlabel('Number of Days')
-        plt.ylabel('Price ($)')
+        plt.ylabel(f'Price ({currency})')
         plt.legend()
         plt.grid(True, alpha=0.3)
         st.pyplot(fig4)
-    
-    # Model Performance Metrics
-    st.subheader('🎯 Model Performance')
-    
-    from utils.stock_utils import calculate_prediction_accuracy
-    accuracy = calculate_prediction_accuracy(y, predict)
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Prediction Accuracy", f"{accuracy:.2f}%")
-    with col2:
-        mae = abs(y - predict).mean()
-        st.metric("Mean Absolute Error", f"${mae:.2f}")
-    with col3:
-        next_prediction = predict[-1]
-        st.metric("Next Day Prediction", f"${next_prediction.item():.2f}")
