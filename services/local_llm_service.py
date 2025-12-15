@@ -157,6 +157,7 @@ Technical Indicators: {technical_data}
 
 4. **Price Direction & Timeline**  
    Give a short-term (1–3 months) directional outlook (uptrend/downtrend/sideways) based on:  
+   - Next day model prediction (if provided in technical data)  
    - Technical setup  
    - Expected fundamental catalysts  
    - Market sentiment  
@@ -247,6 +248,7 @@ Fundamental Analysis: {fundamental_analysis}
    Include:  
    - Confidence level (High / Medium / Low)  
    - Key supporting evidence from both analyses  
+   - Model's next day prediction direction (if available)  
    - Comparison to typical benchmark behavior (Nifty/S&P trend characteristics; no fabricated numbers)
 
 3. **Risk–Return Analysis**  

@@ -94,7 +94,6 @@ range_position = ((metrics['latest_price'] - range_min) / (range_max - range_min
 currency = get_currency_symbol(stock_symbol)
 
 with col1:
-    pred_change_val = prediction_change.item()
     st.metric(
         label="⏭️ Next Prediction", 
         value=f"{currency}{next_prediction:.2f}"
@@ -124,7 +123,6 @@ if llm_service.check_connection():
     ma200_val = metrics['price_vs_ma200'].item()
     price_change_val = metrics['price_change'].item()
     next_pred_val = next_prediction
-    pred_change_val = prediction_change.item()
     range_min_val = range_min.item()
     range_max_val = range_max.item()
     range_pos_val = range_position.item()
@@ -137,7 +135,7 @@ if llm_service.check_connection():
     - Price vs MA50: {ma50_val:+.1f}%
     - Price vs MA100: {ma100_val:+.1f}%
     - Price vs MA200: {ma200_val:+.1f}%
-    - Model Next Day Prediction: {currency}{next_pred_val:.2f} ({pred_change_val:+.1f}%)
+    - Model Next Day Prediction: {currency}{next_pred_val:.2f}
     """
     
     price_metrics = f"""
@@ -147,7 +145,7 @@ if llm_service.check_connection():
     - Daily Change: {price_change_val:+.2f}%
     - Average Daily Volume: {metrics['volume_avg']}
     - Volatility Level: {'High' if volatility_val > 3 else 'Medium' if volatility_val > 1.5 else 'Low'}
-    - Model Confidence: {'High' if accuracy_val > 85 else 'Medium' if accuracy_val > 75 else 'Low'}
+    - Model Confidence: {'High' if volatility_val < 1.5 else 'Medium' if volatility_val < 3 else 'Low'}
     """
     
     # Check if summary already exists in cache

@@ -19,7 +19,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.stock_utils import (
     init_local_llm, 
     prepare_stock_data_for_llm, display_llm_sidebar_status,
-    get_trend_info, get_currency_symbol
+    get_trend_info, get_currency_symbol, load_prediction_model, predict_next_day
 )
 
 st.set_page_config(
@@ -87,13 +87,23 @@ trend_emoji, trend_text, trend_color = get_trend_info(
 
 currency = get_currency_symbol(stock_symbol)
 
+# Calculate next day prediction
+model = load_prediction_model()
+next_prediction = predict_next_day(model, data)
+
 with col1:
     st.metric("💲 Current Price", f"{currency}{metrics['latest_price'].item():.2f}")
 
 with col2:
-    st.metric("📈 Trend", f"{trend_emoji} {trend_text}")
+    st.metric(
+        "⏭️ Next Day Prediction", 
+        f"{currency}{next_prediction:.2f}"
+    )
 
 with col3:
+    st.metric("📈 Trend", f"{trend_emoji} {trend_text}")
+
+with col4:
     st.metric("📊 Volatility", f"{metrics['volatility'].item():.2f}%")
 
 # Moving Average Analysis
@@ -145,8 +155,8 @@ if llm_service.check_connection():
     # Prepare stock data for LLM analysis
     stock_data = prepare_stock_data_for_llm(stock_symbol, metrics)
     
-    # Add prediction accuracy to the data
-    stock_data["technical_data"] += f"\nModel Prediction Accuracy: {accuracy:.1f}%"
+    # Add prediction data to the technical analysis
+    stock_data["technical_data"] += f"\nNext Day Prediction: {currency}{next_prediction:.2f}"
     
     # Check if analysis already exists in cache
     cache_key = f"technical_{stock_symbol}"
