@@ -1,0 +1,110 @@
+STOCKIFY - AI-Powered Stock Market Intelligence Platform
+
+High-Level Workflow (Text Diagram)
+
+User
+  |
+  v
++---------------------------------------------------+
+| Streamlit App (Multi-Page UI)                     |
+| - app.py                                          |
+| - pages/ (Technical Analysis, Investment Summary, |
+|           Stock Tickers List, Financial Report)   |
++---------------------------------------------------+
+  |
+  +--------------------------------------------------------------------------------------+
+  |                                                                                      |
+  |                                                                                      |
+  v                                                                                      v
+[Main Dashboard (app.py)]                                                           [Financial Report Analysis]
+  |                                                                                        (pages/Financial_Report_Analysis.py)
+  |                                                                                      
+  |  Input stock symbol -> validate (utils.stock_utils.validate_stock_input)              Upload PDF -> temp save
+  |  |                                                                                   | 
+  |  v                                                                                   v
+  |  Download data (yfinance) -------------------------------------------------> utils/pdf_utils.load_pdf_with_langchain
+  |      (utils.stock_utils.download_stock_data)                                         |
+  |                                                                                      v
+  |  Load LSTM model (.keras) (cached) (utils.stock_utils.load_prediction_model)   Split into chunks
+  |                                                                                 (utils.pdf_utils.split_documents)
+  |  Prepare/scale data for prediction (prepare_prediction_data)                          |
+  |  Make predictions (make_predictions)                                                  v
+  |  Predict next day (predict_next_day)                                          Create embeddings via LM Studio
+  |  Compute metrics (calculate_metrics)                                          (services.embeddings_service.LMStudioEmbeddings)
+  |  Persist to session_state (data, predictions, metrics, current_stock)                 |
+  |                                                                                      v
+  |  Visualize:                                                                          Build FAISS vector store
+  |   - MA50/100/200 charts                                                              (langchain_community.vectorstores.FAISS)
+  |   - Actual vs Predicted                                                              |
+  |   - KPIs (price, change, volume, next-day pred)                                      v
+  |                                                                                 Initialize RAG Pipeline
+  |                                                                                 (services.rag_pipeline.RAGPipeline)
+  |                                                                                      |
+  |                                                                                      v
+  |                                                                                Ask question (user input)
+  |                                                                                      |
+  |                                                                                      v
+  |                                                                                Similarity search (FAISS)
+  |                                                                                -> build context chunk(s)
+  |                                                                                      |
+  |                                                                                      v
+  |                                                                                Prompt LLM with context
+  |                                                                                -> Generate answer (+sources)
+  |                                                                                -> Display Q/A with citations
+  |
+  |
+  +-----------------------------+       +----------------------------------+       +---------------------------+
+  | Technical Analysis Page     |       | Investment Summary Page          |       | Stock Tickers List Page   |
+  | (pages/Technical_Analysis)  |       | (pages/Investment_Summary)       |       | (pages/Stock_Tickers_List)|
+  +-----------------------------+       +----------------------------------+       +---------------------------+
+  | Uses session_state:                | Uses session_state:                      | Load CSVs from resources:
+  |  - stock_data                      |  - stock_data                            |  - NASDAQ_Active_Stocks_List.csv
+  |  - metrics                         |  - metrics                               |  - NSE_Active_Stocks_List.csv
+  |  - predictions                     |  - predictions                           | Search / filter / sort, export CSV
+  | Computes next-day prediction       | Computes risk metrics & ranges           | Show popular tickers quick cards
+  | Prepares data for LLM              | Streams AI investment summary            |
+  | Streams AI technical analysis      | via Local LLM Service                    |
+  | via Local LLM Service              | (services.local_llm_service)             |
+  | (services.local_llm_service)       |                                          |
+  +------------------------------------+------------------------------------------+-----------------------------+
+
+
+Local LLM + Embeddings (LM Studio)
+
++-------------------------------------------------------------------------------------------+
+| services/local_llm_service.py                                                              |
+|  - Wraps LangChain ChatOpenAI to talk to LM Studio (http://localhost:1234/v1)             |
+|  - Streams:                                                                               |
+|      • analyze_stock_fundamentals_stream (Technical Analysis)                             |
+|      • generate_investment_summary_stream (Investment Summary)                            |
++-------------------------------------------------------------------------------------------+
+| services/embeddings_service.py                                                             |
+|  - LMStudioEmbeddings hits LM Studio embeddings endpoint (http://127.0.0.1:1234/v1)       |
+|  - Produces 384-dim vectors for FAISS                                                      |
++-------------------------------------------------------------------------------------------+
+
+
+Data & Models
+
+- Market data: Yahoo Finance via `yfinance` (internet required)
+- Prediction model: `models/Stock Predictions Model.keras` (LSTM) loaded once (cached)
+- Resources for tickers: `resources/NASDAQ_Active_Stocks_List.csv`, `resources/NSE_Active_Stocks_List.csv`
+- PDF processing: PyPDFLoader (LangChain) + RecursiveCharacterTextSplitter
+
+
+End-to-End Flow (Concise)
+
+User -> Streamlit UI
+  -> Main Dashboard: enter symbol -> yfinance data -> LSTM predictions + charts -> session_state
+  -> Technical Analysis: read session_state -> stream AI analysis (LM Studio)
+  -> Investment Summary: read session_state -> stream AI summary (LM Studio)
+  -> Stock Tickers List: browse/search CSV tickers
+  -> Financial Report Analysis: upload PDF -> chunks -> embeddings (LM Studio) -> FAISS -> RAG -> LLM answer + sources
+
+
+Operational Requirements
+
+- LM Studio running locally (models loaded) at http://localhost:1234
+- Internet access for `yfinance`
+- Python dependencies in `requirements.txt` installed
+- Streamlit app entry: run `streamlit run app.py`
