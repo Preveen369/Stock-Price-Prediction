@@ -28,7 +28,7 @@ Whether you're analyzing US stocks (NASDAQ) or Indian markets (NSE), Stockify pr
 ### 1. 🏠 Main Dashboard - Stock Price Predictions
 **Core Features:**
 - ✅ **LSTM Price Predictions** - 50/100/200-day forecasts trained on 2012-2022 market data
-- ✅ **Real-time Stock Data** - Live market data analytics from Yahoo Finance
+- ✅ **Real-time Stock Data** - Live market data with dynamic date fetching using Yahoo Finance (up to current date)
 - ✅ **Historical Charts** - Interactive price visualization and trend analysis
 - ✅ **AI Market Insights** - Automated analysis of stock performance
 

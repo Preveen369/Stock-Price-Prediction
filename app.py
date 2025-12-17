@@ -15,6 +15,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import sys
 import os
+from datetime import datetime
 from utils.stock_utils import (
     download_stock_data, load_prediction_model, init_local_llm,
     prepare_prediction_data, make_predictions, calculate_metrics,
@@ -68,7 +69,9 @@ if error_message:
     st.stop()
 
 start = '2012-01-01'
-end = '2025-12-14'
+# Get the current system date
+current_datetime = datetime.now()
+end = str(current_datetime.date())
 
 # Clear cache if stock symbol changes
 if stock_symbol != st.session_state.current_stock:

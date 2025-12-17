@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 import streamlit as st
+from datetime import datetime
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import load_model
 from services.local_llm_service import LocalLLMService
@@ -14,19 +15,24 @@ from config.llm_config import LM_STUDIO_CONFIG
 
 
 @st.cache_data
-def download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2025-12-14'):
+def download_stock_data(stock_symbol, start_date='2012-01-01', end_date=None):
     """
     Download stock data from Yahoo Finance with caching
     
     Args:
         stock_symbol: Stock ticker symbol (e.g., 'AAPL', 'INFY.NS')
         start_date: Start date for historical data (YYYY-MM-DD)
-        end_date: End date for historical data (YYYY-MM-DD)
+        end_date: End date for historical data (YYYY-MM-DD), defaults to current date
         
     Returns:
         tuple: (DataFrame with stock data, error message or None)
     """
     try:
+        # Get the current system date if end_date is not provided
+        if end_date is None:
+            current_datetime = datetime.now()
+            end_date = str(current_datetime.date())
+        
         data = yf.download(stock_symbol.strip().upper(), start_date, end_date)
         return data, None
     except Exception as e:

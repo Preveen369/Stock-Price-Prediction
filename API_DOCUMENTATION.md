@@ -354,13 +354,13 @@ for i, source in enumerate(result['sources']):
 
 #### Functions
 
-##### `download_stock_data(stock_symbol, start_date='2012-01-01', end_date='2022-12-31')`
+##### `download_stock_data(stock_symbol, start_date='2012-01-01', end_date=None)`
 Download stock data from Yahoo Finance with caching.
 
 **Parameters**:
 - `stock_symbol` (str): Stock ticker symbol (e.g., 'AAPL', 'INFY.NS')
 - `start_date` (str): Start date for historical data (YYYY-MM-DD). Default: '2012-01-01'
-- `end_date` (str): End date for historical data (YYYY-MM-DD). Default: '2022-12-31'
+- `end_date` (str): End date for historical data (YYYY-MM-DD). Default: None (current system date)
 
 **Returns**:
 - `tuple`: (DataFrame with stock data, error message or None)
@@ -368,12 +368,17 @@ Download stock data from Yahoo Finance with caching.
 **Example**:
 ```python
 from utils.stock_utils import download_stock_data
+from datetime import datetime
 
-data, error = download_stock_data("AAPL", "2020-01-01", "2023-12-31")
+# Download with dynamic end date (current date)
+data, error = download_stock_data("AAPL", "2020-01-01")
 if error:
     print(f"Error: {error}")
 else:
     print(f"Downloaded {len(data)} rows")
+
+# Or specify explicit end date
+data, error = download_stock_data("AAPL", "2020-01-01", "2023-12-31")
 ```
 
 ---
@@ -847,9 +852,10 @@ from utils.stock_utils import (
     init_local_llm,
     prepare_stock_data_for_llm
 )
+from datetime import datetime
 
-# Download stock data
-data, error = download_stock_data("AAPL", "2020-01-01", "2023-12-31")
+# Download stock data (uses current date by default)
+data, error = download_stock_data("AAPL", "2020-01-01")
 
 # Load model and make predictions
 model = load_prediction_model()
