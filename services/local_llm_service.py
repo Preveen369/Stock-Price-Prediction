@@ -138,6 +138,27 @@ Technical Indicators: {technical_data}
 
 ---
 
+### MOVING AVERAGE INTERPRETATION GUIDE:
+
+1. **50-Day MA (Short-term trend)**
+   - Purpose: Captures recent price momentum
+   - Trading Signal: Price above MA50 = Bullish (upward trend)
+   - Example: If stock is at $150 and MA50 is $145, it's trading 3.4% above its 50-day average → Bullish signal
+2. **100-Day MA (Medium-term trend)**
+   - Purpose: Filters out short-term noise
+   - Golden Cross: When MA50 crosses above MA100 = Strong buy signal
+   - Death Cross: When MA50 crosses below MA100 = Strong sell signal
+
+3. **200-Day MA (Long-term trend)**
+   - Purpose: Identifies major market direction
+   - Bull Market: Price consistently above MA200
+   - Bear Market: Price consistently below MA200
+   - Example: If stock trades above its 200-day MA for 6 months, it signals a sustained bull market
+
+Use these MA relationships when interpreting the technical data to provide accurate momentum and trend analysis.
+
+---
+
 ### Generate the following sections:
 
 1. **Current Market Position (2–3 sentences)**  

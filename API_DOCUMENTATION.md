@@ -139,10 +139,29 @@ print(f"Available models: {models}")
   - `company_name` (str): Company name
   - `sector` (str): Business sector
   - `financial_data` (str): Financial metrics text
-  - `technical_data` (str): Technical indicators text
+  - `technical_data` (str): Technical indicators text (includes MA50, MA100, MA200)
 
 **📤 Yields**:
 - `str`: Chunks of AI-generated analysis text
+
+**🔍 Built-in Moving Average Interpretation**:
+
+The LLM is pre-configured with comprehensive moving average analysis guidelines:
+
+1. **50-Day MA (Short-term trend)**
+   - Captures recent price momentum
+   - Price above MA50 = Bullish signal
+   - Price below MA50 = Bearish signal
+
+2. **100-Day MA (Medium-term trend)**
+   - Filters short-term noise
+   - Golden Cross: MA50 crosses above MA100 = Strong buy signal
+   - Death Cross: MA50 crosses below MA100 = Strong sell signal
+
+3. **200-Day MA (Long-term trend)**
+   - Identifies major market direction
+   - Price above MA200 = Bull market
+   - Price below MA200 = Bear market
 
 **💡 Example**:
 ```python
@@ -151,7 +170,7 @@ stock_data = {
     "company_name": "Apple Inc.",
     "sector": "Technology",
     "financial_data": "Latest Price: $150.00...",
-    "technical_data": "50-Day MA: $145.00..."
+    "technical_data": "50-Day MA: $145.00, 100-Day MA: $143.00, 200-Day MA: $140.00..."
 }
 
 for chunk in llm_service.analyze_stock_fundamentals_stream(stock_data):
