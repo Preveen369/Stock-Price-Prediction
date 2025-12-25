@@ -7,6 +7,7 @@ import streamlit as st
 import requests
 from typing import List
 from langchain_core.embeddings import Embeddings
+from config.llm_config import LM_STUDIO_CONFIG
 
 
 class LMStudioEmbeddings(Embeddings):
@@ -15,16 +16,22 @@ class LMStudioEmbeddings(Embeddings):
     Inherits from LangChain's Embeddings base class for full compatibility
     """
     
-    def __init__(self, base_url: str = "http://127.0.0.1:1234"):
+    def __init__(self, base_url: str | None = None, model_name: str | None = None):
         """
         Initialize LM Studio embeddings client
         
         Args:
             base_url: Base URL for LM Studio server
         """
-        self.base_url = base_url
-        self.embeddings_endpoint = f"{base_url}/v1/embeddings"
-        self.model_name = "text-embedding-nomic-embed-text-v1.5"
+        # Default to configuration value if available, otherwise fallback
+        base_url = base_url or LM_STUDIO_CONFIG.get("base_root", "http://127.0.0.1:1234")
+        # normalize endpoint so we don't end up with '/v1/v1'
+        if base_url.rstrip("/").endswith("/v1"):
+            self.embeddings_endpoint = f"{base_url.rstrip('/')}/embeddings"
+        else:
+            self.embeddings_endpoint = f"{base_url.rstrip('/')}/v1/embeddings"
+
+        self.model_name = model_name or LM_STUDIO_CONFIG.get("embedding_model", "text-embedding-nomic-embed-text-v1.5")
     
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
         """
@@ -94,7 +101,7 @@ class LMStudioEmbeddings(Embeddings):
             return [0.0] * 384
 
 
-def get_embeddings_model(base_url: str = "http://127.0.0.1:1234") -> LMStudioEmbeddings:
+def get_embeddings_model(base_url: str | None = None, model_name: str | None = None) -> LMStudioEmbeddings:
     """
     Factory function to create LM Studio embeddings model instance
     
@@ -104,4 +111,4 @@ def get_embeddings_model(base_url: str = "http://127.0.0.1:1234") -> LMStudioEmb
     Returns:
         LMStudioEmbeddings: Configured embeddings model for LangChain integration
     """
-    return LMStudioEmbeddings(base_url=base_url)
+    return LMStudioEmbeddings(base_url=base_url, model_name=model_name)
