@@ -19,26 +19,27 @@ User
 [Main Dashboard (app.py)]                                                           [Financial Report Analysis]
   |                                                                                        (pages/Financial_Report_Analysis.py)
   |                                                                                      
-  |  Input stock symbol -> validate (utils.stock_utils.validate_stock_input)              Upload PDF -> temp save
-  |  |                                                                                   | 
+  |  Input stock symbol                                                           Upload PDF -> temp save
+  |  |     -> validate (utils.stock_utils.validate_stock_input)                          | 
   |  v                                                                                   v
-  |  Download data (yfinance) -------------------------------------------------> utils/pdf_utils.load_pdf_with_langchain
+  |  Download data (yfinance) ------------------------------------------------>   utils/pdf_utils.load_pdf_with_langchain
   |      (utils.stock_utils.download_stock_data)                                         |
   |                                                                                      v
-  |  Load LSTM model (.keras) (cached) (utils.stock_utils.load_prediction_model)   Split into chunks
-  |                                                                                 (utils.pdf_utils.split_documents)
-  |  Prepare/scale data for prediction (prepare_prediction_data)                          |
-  |  Make predictions (make_predictions)                                                  v
+  |  Load LSTM model (.keras) (cached)                                            Split into chunks
+  |       (utils.stock_utils.load_prediction_model)                                   (utils.pdf_utils.split_documents)
+  |                                                                                      | 
+  |  Prepare/scale data for prediction (prepare_prediction_data)                         |
+  |  Make predictions (make_predictions)                                                 v
   |  Predict next day (predict_next_day)                                          Create embeddings via LM Studio
-  |  Compute metrics (calculate_metrics)                                          (services.embeddings_service.LMStudioEmbeddings)
-  |  Persist to session_state (data, predictions, metrics, current_stock)                 |
+  |  Compute metrics (calculate_metrics)                                            (services.embeddings_service.LMStudioEmbeddings)
+  |  Persist to session_state (data, predictions, metrics, current_stock)                |
   |                                                                                      v
-  |  Visualize:                                                                          Build FAISS vector store
-  |   - MA50/100/200 charts                                                              (langchain_community.vectorstores.FAISS)
+  |  Visualize:                                                                   Build FAISS vector store
+  |   - MA50/100/200 charts                                                         (langchain_community.vectorstores.FAISS)
   |   - Actual vs Predicted                                                              |
   |   - KPIs (price, change, volume, next-day pred)                                      v
   |                                                                                 Initialize RAG Pipeline
-  |                                                                                 (services.rag_pipeline.RAGPipeline)
+  |                                                                                  (services.rag_pipeline.RAGPipeline)
   |                                                                                      |
   |                                                                                      v
   |                                                                                Ask question (user input)
@@ -53,10 +54,10 @@ User
   |                                                                                -> Display Q/A with citations
   |
   |
-  +-----------------------------+       +----------------------------------+       +---------------------------+
-  | Technical Analysis Page     |       | Investment Summary Page          |       | Stock Tickers List Page   |
-  | (pages/Technical_Analysis)  |       | (pages/Investment_Summary)       |       | (pages/Stock_Tickers_List)|
-  +-----------------------------+       +----------------------------------+       +---------------------------+
+  +-----------------------------+      +----------------------------------+       +---------------------------+
+  | Technical Analysis Page     |      | Investment Summary Page          |       | Stock Tickers List Page   |
+  | (pages/Technical_Analysis)  |      | (pages/Investment_Summary)       |       | (pages/Stock_Tickers_List)|
+  +-----------------------------+      +----------------------------------+       +---------------------------+
   | Uses session_state:                | Uses session_state:                      | Load CSVs from resources:
   |  - stock_data                      |  - stock_data                            |  - NASDAQ_Active_Stocks_List.csv
   |  - metrics                         |  - metrics                               |  - NSE_Active_Stocks_List.csv
