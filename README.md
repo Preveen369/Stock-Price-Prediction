@@ -205,9 +205,9 @@ Stock-Price-Prediction/
 
 ### 2. RAG (Retrieval-Augmented Generation)
 ```
-Document → Chunks → Embeddings → Vector Store
+  Document → Chunks → Embeddings → Vector Store
                                         ↓
-Question → Embedding → Similarity Search → Retrieved Chunks
+         Question → Embedding → Similarity Search → Retrieved Chunks
                                         ↓
                         Chunks + Question → LLM → Answer
 ```
