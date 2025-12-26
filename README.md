@@ -147,25 +147,6 @@ Helper functions for data processing, calculations, and file operations.
 - `stock_utils.py` - Stock data fetching and analysis
 - `pdf_utils.py` - PDF processing and chunking
 
-#### Example Usage
-```python
-from services.local_llm_service import LocalLLMService
-from utils.stock_utils import download_stock_data, calculate_metrics
-
-# Initialize LLM
-llm = LocalLLMService()
-
-# Get stock data
-data, error = download_stock_data("AAPL")
-
-# Calculate metrics
-metrics = calculate_metrics(data)
-
-# Get AI analysis
-for chunk in llm.analyze_stock_fundamentals_stream(stock_data):
-    print(chunk, end='')
-```
-
 ---
 
 ## 📁 Project Structure
